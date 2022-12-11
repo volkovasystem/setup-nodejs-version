@@ -1,11 +1,19 @@
 {
-  "name": "setup-nodejs-version",
+  "name": "@volkovasystem/setup-nodejs-version",
   "version": "0.0.0",
   "description": "Setup NodeJS Version",
-  "main": "index.js",
+  "main": "setup-nodejs-version.js",
+  "bin": {
+	"setup-nodejs-version": "source ./setup-nodejs-version.sh"
+  },
   "scripts": {
     "test": "node ./setup-nodejs-version.test.js"
   },
+  "os": [
+	"linux",
+	"!darwin",
+	"!win32"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/volkovasystem/setup-nodejs-version.git"
