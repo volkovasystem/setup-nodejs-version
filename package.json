@@ -1,0 +1,24 @@
+{
+  "name": "setup-nodejs-version",
+  "version": "0.0.0",
+  "description": "Setup NodeJS Version",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./setup-nodejs-version.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/volkovasystem/setup-nodejs-version.git"
+  },
+  "keywords": [
+    "setup",
+    "nodejs",
+    "version"
+  ],
+  "author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/volkovasystem/setup-nodejs-version/issues"
+  },
+  "homepage": "https://github.com/volkovasystem/setup-nodejs-version#readme"
+}
