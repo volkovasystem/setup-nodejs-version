@@ -4,7 +4,8 @@
   "description": "Setup NodeJS Version",
   "main": "setup-nodejs-version.js",
   "bin": {
-	"setup-nodejs-version": "source ./setup-nodejs-version.sh"
+	"setup-nodejs-version": "source ./setup-nodejs-version.sh",
+	"snjsv": "source ./setup-nodejs-version.sh"
   },
   "scripts": {
     "test": "node ./setup-nodejs-version.test.js"
