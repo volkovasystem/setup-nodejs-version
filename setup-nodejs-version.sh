@@ -85,12 +85,24 @@ export PATH="$PATH:$NP";
 NPM_VERSION="$2";
 [[ -z "$NPM_VERSION" ]] &&\
 NPM_VERSION="latest";
+
+[[ $NPM_VERSION == "next" ]] &&\
+NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')" ;
+
 NPMV=$NPM_VERSION;
 npm install npm@$NPMV --global;
 
 #;	@note: set npm python path.
 [[ -x /usr/bin/python ]] &&\
 npm config set python /usr/bin/python;
+
+#;	@note: set npm python path.
+[[ -x /usr/bin/python3 ]] &&\
+npm config set python /usr/bin/python3;
+
+#;	@note: set npm python path.
+[[ -x /usr/bin/python2 ]] &&\
+npm config set python /usr/bin/python2;
 
 #;	@note: set npm binary directory path.
 export NPM_BINARY_DIRECTORY_PATH="$(npm bin --global)";
