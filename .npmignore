@@ -3,3 +3,7 @@
 *.sh
 *.module.js
 *.test.js
+
+!setup-jq.sh
+!setup-python.sh
+!setup-nodejs-version.sh
