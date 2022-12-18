@@ -3,8 +3,9 @@
 #;	@section: setup nodejs version:
 
 #;	@section: install needed module;
-[[ ! -x $(which jq) ]] &&\
-sudo apt-get install jq;
+source ./setup-jq.sh;
+
+source ./setup-python-minimal.sh;
 
 #;	@section: set platform root directory;
 [[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&\
