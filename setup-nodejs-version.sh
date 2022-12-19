@@ -2,6 +2,8 @@
 
 set +o history;
 
+SHELL_COMMAND_LINE="$@";
+
 SHELL_STATE="$(set +o)";
 
 set \
@@ -21,8 +23,8 @@ getopt \
 [[ $? > 0 ]] && \
 exit 1;
 
-TARGET_VERSION=
-TARGET_NPM_VERSION="latest"
+TARGET_VERSION=;
+TARGET_NPM_VERSION=;
 
 eval set -- "$PARAMETER";
 
@@ -148,10 +150,10 @@ npm config set fund false --global 2> /dev/null;
 #;	@note: update npm;
 NPM_VERSION="$TARGET_NPM_VERSION";
 [[ -z "$NPM_VERSION" ]] && \
-NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')" ;
+NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 
 [[ $NPM_VERSION == "next" ]] && \
-NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')" ;
+NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 
 NPMV=$NPM_VERSION;
 npm install npm@$NPMV --global;
@@ -179,6 +181,6 @@ echo "npm@$(npm --version)";
 
 #;	@section: setup nodejs version;
 
-echo "$@";
+echo "$SHELL_COMMAND_LINE";
 
 set -o history;
