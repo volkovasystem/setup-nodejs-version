@@ -6,6 +6,8 @@
 	"main": "setup-nodejs-version.js",
 	"scripts": {
 		"test": "node ./setup-nodejs-version.test.js",
+		"stage": "source ./tool/stage-module.sh",
+		"prepublishOnly": "npm run stage",
 		"setup-nodejs-version": "source ./setup-nodejs-version.sh",
 		"snjsv": "source ./setup-nodejs-version.sh"
 	},
