@@ -151,6 +151,8 @@ NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')" ;
 NPMV=$NPM_VERSION;
 npm install npm@$NPMV --global;
 
+npm config set update-notifier false --global;
+
 #;	@note: set npm python path.
 [[ -x $(which python) && ! -x $(npm config get python --global) ]] && \
 npm config set python=/usr/bin/python --global;
