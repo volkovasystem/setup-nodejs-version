@@ -177,6 +177,8 @@ echo "npm using python3";
 echo "node@$(node --version)";
 echo "npm@$(npm --version)";
 
-set -o history;
-
 #;	@section: setup nodejs version;
+
+echo "$@";
+
+set -o history;
