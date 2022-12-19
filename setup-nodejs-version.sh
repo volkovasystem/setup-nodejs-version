@@ -1,5 +1,48 @@
 #!/usr/bin/env bash
 
+set \
+-o noclobber \
+-o nounset \
+-o pipefail;
+
+PARAMETER="$(\
+getopt \
+--quiet \
+--alternative \
+--options v:n: \
+--longoptions version:,npm: \
+-- "$@"\
+)";
+
+[[ $? > 0 ]] && \
+exit 1;
+
+TARGET_VERSION=
+TARGET_NPM_VERSION="latest"
+
+eval set -- "$PARAMETER";
+
+while true;
+do
+	case "$1" in
+		-v | --version )
+			TARGET_VERSION=$2;
+			shift 2
+			;;
+		-n | --npm )
+			TARGET_NPM_VERSION=$2;
+			shift 2
+			;;
+		-- )
+			shift;
+			break
+			;;
+		* )
+			break
+			;;
+	esac
+done
+
 #;	@section: setup nodejs version:
 
 #;	@section: install needed module;
@@ -7,9 +50,12 @@ source ./setup-jq.sh;
 
 source ./setup-python-minimal.sh;
 
+PLATFORM_ROOT_DIRECTORY_PATH="";
+PRDP=""
+
 #;	@section: set platform root directory;
-[[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&\
-[[ $PLATFORM_ROOT_DIRECTORY_PATH == $PRDP ]] &&\
+[[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] && \
+[[ $PLATFORM_ROOT_DIRECTORY_PATH == $PRDP ]] && \
 PLATFORM_ROOT_DIRECTORY_PATH=$HOME;
 PRDP=$PLATFORM_ROOT_DIRECTORY_PATH;
 
@@ -27,8 +73,8 @@ wget -qO- https://nodejs.org/download/release/index.json | \
 jq '.[] | select(.lts!=false) | .version' | \
 grep -Eo '[0-9]+.[0-9]+.[0-9]+'| \
 head -n 1)";
-NODEJS_VERSION="$1";
-[[ -z "$NODEJS_VERSION" ]] &&\
+NODEJS_VERSION="$TARGET_VERSION";
+[[ -z "$NODEJS_VERSION" ]] && \
 NODEJS_VERSION=$CURRENT_NODEJS_LTS_VERSION;
 NV=$NODEJS_VERSION;
 
@@ -49,15 +95,15 @@ NODEJS_PACKAGE_DIRECTORY_PATH="$NVP/$NPN";
 NPDP=$NODEJS_PACKAGE_DIRECTORY_PATH;
 
 #;	@note: initialize nodejs version directory;
-[[ ! -d $NVP ]] &&\
+[[ ! -d $NVP ]] && \
 mkdir $NVP;
 
 #;	@note: download nodejs package;
-[[ ! -f $NPFP ]] &&\
+[[ ! -f $NPFP ]] && \
 wget $NDUP -P $NVP;
 
 #;	@note: extract nodejs package;
-[[ ! -d $NPDP ]] &&\
+[[ ! -d $NPDP ]] && \
 tar -xzvf $NPFP -C $NVP;
 
 #;	@note: set nodejs path;
@@ -69,7 +115,7 @@ grep -v "\.tar\.gz$"\
 NP=$NODEJS_PATH;
 
 #;	@note: clean nodejs binary path;
-[[ $(echo $PATH | grep -oP $NVPN | head -1) == $NVPN ]] &&\
+[[ $(echo $PATH | grep -oP $NVPN | head -1) == $NVPN ]] && \
 export PATH="$(\
 echo $PATH | \
 tr ":" "\n" | \
@@ -79,31 +125,33 @@ sed "s/:\{2,\}/:/g" | \
 sed "s/:$//")";
 
 #;	@note: export nodejs binary path;
-[[ $(echo $PATH | grep -oP $NP ) != $NP ]] &&\
+[[ $(echo $PATH | grep -oP $NP ) != $NP ]] && \
 export PATH="$PATH:$NP";
 
 #;	@note: update npm;
-NPM_VERSION="$2";
-[[ -z "$NPM_VERSION" ]] &&\
+NPM_VERSION="$TARGET_NPM_VERSION";
+[[ -z "$NPM_VERSION" ]] && \
 NPM_VERSION="latest";
 
-[[ $NPM_VERSION == "next" ]] &&\
+[[ $NPM_VERSION == "next" ]] && \
 NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')" ;
 
 NPMV=$NPM_VERSION;
 npm install npm@$NPMV --global;
 
 #;	@note: set npm python path.
-[[ -x /usr/bin/python ]] &&\
-npm config set python /usr/bin/python;
+[[ -x $(which python) && ! -x $(npm config get python --global) ]] && \
+npm config set python=/usr/bin/python --global;
 
 #;	@note: set npm python path.
-[[ -x /usr/bin/python3 ]] &&\
-npm config set python /usr/bin/python3;
+[[ -x $(which python2) && ! -x $(npm config get python --global) ]] && \
+npm config set python=/usr/bin/python2 --global;
 
 #;	@note: set npm python path.
-[[ -x /usr/bin/python2 ]] &&\
-npm config set python /usr/bin/python2;
+[[ -x $(which python3) && ! -x $(npm config get python --global) ]] && \
+npm config set python=/usr/bin/python3 --global;
+
+npm config get python --global;
 
 #;	@note: set npm binary directory path.
 export NPM_BINARY_DIRECTORY_PATH="$(npm bin --global)";
