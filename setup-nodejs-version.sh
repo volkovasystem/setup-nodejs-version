@@ -46,9 +46,9 @@ done
 #;	@section: setup nodejs version:
 
 #;	@section: install needed module;
-source ./setup-jq.sh;
+source setup-jq.sh;
 
-source ./setup-python-minimal.sh;
+source setup-python-minimal.sh;
 
 PLATFORM_ROOT_DIRECTORY_PATH="";
 PRDP=""
@@ -151,6 +151,13 @@ npm config set python=/usr/bin/python2 --global;
 [[ -x $(which python3) && ! -x $(npm config get python --global) ]] && \
 npm config set python=/usr/bin/python3 --global;
 
-npm config get python --global;
+[[ "$(which python2)" == "$(npm config get python --global)" ]] && \
+echo "npm using python2";
+
+[[ "$(which python3)" == "$(npm config get python --global)" ]] && \
+echo "npm using python3";
+
+echo "node@$(node --version)";
+echo "npm@$(npm --version)";
 
 #;	@section: setup nodejs version;
