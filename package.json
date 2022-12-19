@@ -5,9 +5,12 @@
 	"description": "Setup NodeJS Version",
 	"main": "setup-nodejs-version.js",
 	"scripts": {
+		"clean": "source ./tool/clean-module.sh",
+		"check": "source ./tool/check-module.sh",
 		"test": "node ./setup-nodejs-version.test.js",
 		"stage": "source ./tool/stage-module.sh",
 		"prepublishOnly": "npm run stage",
+		"postpublishOnly": "npm run clean && npm run check",
 		"setup-nodejs-version": "source ./setup-nodejs-version.sh",
 		"snjsv": "source ./setup-nodejs-version.sh"
 	},
