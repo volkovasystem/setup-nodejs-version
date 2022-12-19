@@ -12,8 +12,8 @@
 		"snjsv": "source ./setup-nodejs-version.sh"
 	},
 	"bin": {
-		"setup-nodejs-version": "source ./setup-nodejs-version.sh",
-		"snjsv": "source ./setup-nodejs-version.sh"
+		"setup-nodejs-version": "source setup-nodejs-version.sh",
+		"snjsv": "source setup-nodejs-version.sh"
 	},
 	"os": [
 		"linux",
