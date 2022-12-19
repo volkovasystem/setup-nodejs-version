@@ -152,6 +152,7 @@ NPMV=$NPM_VERSION;
 npm install npm@$NPMV --global;
 
 npm config set update-notifier false --global;
+npm config set fund false --global;
 
 #;	@note: set npm python path.
 [[ -x $(which python) && ! -x $(npm config get python --global) ]] && \
