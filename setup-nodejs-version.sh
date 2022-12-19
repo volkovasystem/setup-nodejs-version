@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set +o history;
+
 SHELL_STATE="$(set +o)";
 
 set \
@@ -151,20 +153,20 @@ NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')" ;
 NPMV=$NPM_VERSION;
 npm install npm@$NPMV --global;
 
-npm config set update-notifier false --global;
-npm config set fund false --global;
+npm config set update-notifier false --global 2> /dev/null;
+npm config set fund false --global 2> /dev/null;
 
 #;	@note: set npm python path.
 [[ -x $(which python) && ! -x $(npm config get python --global) ]] && \
-npm config set python=/usr/bin/python --global;
+npm config set python=/usr/bin/python --global 2> /dev/null;
 
 #;	@note: set npm python path.
 [[ -x $(which python2) && ! -x $(npm config get python --global) ]] && \
-npm config set python=/usr/bin/python2 --global;
+npm config set python=/usr/bin/python2 --global 2> /dev/null;
 
 #;	@note: set npm python path.
 [[ -x $(which python3) && ! -x $(npm config get python --global) ]] && \
-npm config set python=/usr/bin/python3 --global;
+npm config set python=/usr/bin/python3 --global 2> /dev/null;
 
 [[ "$(which python2)" == "$(npm config get python --global)" ]] && \
 echo "npm using python2";
@@ -174,5 +176,7 @@ echo "npm using python3";
 
 echo "node@$(node --version)";
 echo "npm@$(npm --version)";
+
+set -o history
 
 #;	@section: setup nodejs version;
