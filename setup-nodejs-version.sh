@@ -142,6 +142,9 @@ sed "s/:$//")";
 [[ $(echo $PATH | grep -oP $NP ) != $NP ]] && \
 export PATH="$PATH:$NP";
 
+npm config set update-notifier false --global 2> /dev/null;
+npm config set fund false --global 2> /dev/null;
+
 #;	@note: update npm;
 NPM_VERSION="$TARGET_NPM_VERSION";
 [[ -z "$NPM_VERSION" ]] && \
@@ -152,9 +155,6 @@ NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')" ;
 
 NPMV=$NPM_VERSION;
 npm install npm@$NPMV --global;
-
-npm config set update-notifier false --global 2> /dev/null;
-npm config set fund false --global 2> /dev/null;
 
 #;	@note: set npm python path.
 [[ -x $(which python) && ! -x $(npm config get python --global) ]] && \
@@ -177,6 +177,6 @@ echo "npm using python3";
 echo "node@$(node --version)";
 echo "npm@$(npm --version)";
 
-set -o history
+set -o history;
 
 #;	@section: setup nodejs version;
