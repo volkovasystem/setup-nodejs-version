@@ -153,8 +153,4 @@ npm config set python=/usr/bin/python3 --global;
 
 npm config get python --global;
 
-#;	@note: set npm binary directory path.
-export NPM_BINARY_DIRECTORY_PATH="$(npm bin --global)";
-export NBDP=$NPM_BINARY_DIRECTORY_PATH;
-
 #;	@section: setup nodejs version;
