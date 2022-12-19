@@ -1,33 +1,39 @@
 {
-  "name": "@volkovasystem/setup-nodejs-version",
-  "version": "0.0.0",
-  "description": "Setup NodeJS Version",
-  "main": "setup-nodejs-version.js",
-  "bin": {
-	"setup-nodejs-version": "source ./setup-nodejs-version.sh",
-	"snjsv": "source ./setup-nodejs-version.sh"
-  },
-  "scripts": {
-    "test": "node ./setup-nodejs-version.test.js"
-  },
-  "os": [
-	"linux",
-	"!darwin",
-	"!win32"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/volkovasystem/setup-nodejs-version.git"
-  },
-  "keywords": [
-    "setup",
-    "nodejs",
-    "version"
-  ],
-  "author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/volkovasystem/setup-nodejs-version/issues"
-  },
-  "homepage": "https://github.com/volkovasystem/setup-nodejs-version#readme"
+	"name": "@volkovasystem/setup-nodejs-version",
+	"alias": "setup-nodejs-version",
+	"version": "0.0.0",
+	"description": "Setup NodeJS Version",
+	"main": "setup-nodejs-version.js",
+	"scripts": {
+		"test": "node ./setup-nodejs-version.test.js",
+		"setup-nodejs-version": "source ./setup-nodejs-version.sh",
+		"snjsv": "source ./setup-nodejs-version.sh"
+	},
+	"bin": {
+		"setup-nodejs-version": "source ./setup-nodejs-version.sh",
+		"snjsv": "source ./setup-nodejs-version.sh"
+	},
+	"os": [
+		"linux",
+		"!darwin",
+		"!win32"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/volkovasystem/setup-nodejs-version.git"
+	},
+	"keywords": [
+		"setup",
+		"nodejs",
+		"version"
+	],
+	"author": "Richeve S. Bebedor <richeve.bebedor@gmail.com>",
+	"contributors": [
+		"Richeve S. Bebedor <richeve.bebedor@gmail.com>"
+	],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/volkovasystem/setup-nodejs-version/issues"
+	},
+	"homepage": "https://github.com/volkovasystem/setup-nodejs-version#readme"
 }
