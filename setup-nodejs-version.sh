@@ -143,7 +143,7 @@ export PATH="$PATH:$NP";
 #;	@note: update npm;
 NPM_VERSION="$TARGET_NPM_VERSION";
 [[ -z "$NPM_VERSION" ]] && \
-NPM_VERSION="latest";
+NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')" ;
 
 [[ $NPM_VERSION == "next" ]] && \
 NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')" ;
