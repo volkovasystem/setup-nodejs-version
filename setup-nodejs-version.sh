@@ -50,9 +50,17 @@ set +vx; eval "$SHELL_STATE";
 #;	@section: setup nodejs version:
 
 #;	@section: install needed module;
+[[ -f "setup-jq.sh" ]] && \
 source setup-jq.sh;
 
+[[ ! -f "setup-jq.sh" ]] && \
+source setup-jq;
+
+[[ -f "setup-python-minimal.sh" ]] && \
 source setup-python-minimal.sh;
+
+[[ ! -f "setup-python-minimal.sh" ]] && \
+source setup-python-minimal;
 
 PLATFORM_ROOT_DIRECTORY_PATH="";
 PRDP=""

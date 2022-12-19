@@ -12,6 +12,8 @@
 		"snjsv": "source ./setup-nodejs-version.sh"
 	},
 	"bin": {
+		"setup-jq": "setup-jq.sh",
+		"setup-python-minimal": "setup-python-minimal.sh",
 		"setup-nodejs-version": "setup-nodejs-version.sh",
 		"snjsv": "setup-nodejs-version.sh"
 	},
