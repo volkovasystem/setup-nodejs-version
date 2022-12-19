@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+SHELL_STATE="$(set +o)";
+
 set \
 -o noclobber \
 -o nounset \
@@ -42,6 +44,8 @@ do
 			;;
 	esac
 done
+
+set +vx; eval "$SHELL_STATE";
 
 #;	@section: setup nodejs version:
 
