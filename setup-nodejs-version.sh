@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-set +o history;
+SHELL_PREVIOUS_COMMAND_LINE="$(echo !!)";
+SHELL_COMMAND_LINE="$(printf %q "$BASH_SOURCE")$((($#)) && printf ' %q' "$@")";
 
-SHELL_COMMAND_LINE="$@";
+set +o history;
 
 SHELL_STATE="$(set +o)";
 
@@ -182,5 +183,6 @@ echo "npm@$(npm --version)";
 #;	@section: setup nodejs version;
 
 echo "$SHELL_COMMAND_LINE";
+echo "$SHELL_PREVIOUS_COMMAND_LINE";
 
 set -o history;
