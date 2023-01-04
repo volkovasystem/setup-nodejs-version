@@ -57,7 +57,7 @@ REPOSITORY_URI_PATH="https://raw.githubusercontent.com/volkovasystem/setup-nodej
 if [[ -f "setup-jq.sh" ]]
 	then
 		source setup-jq.sh;
-elif [[ ! -f "setup-jq.sh" ]]
+elif [[ ! -f "setup-jq.sh" && -x $(which setup-jq) ]]
 	then
 		source setup-jq;
 else
@@ -67,7 +67,7 @@ fi
 if [[ -f "setup-wget.sh" ]]
 	then
 		source setup-wget.sh;
-elif [[ ! -f "setup-wget.sh" ]]
+elif [[ ! -f "setup-wget.sh" && -x $(which setup-wget) ]]
 	then
 		source setup-wget;
 else
@@ -77,7 +77,7 @@ fi
 if [[ -f "setup-curl.sh" ]]
 	then
 		source setup-curl.sh;
-elif [[ ! -f "setup-curl.sh" ]]
+elif [[ ! -f "setup-curl.sh" && -x $(which setup-curl) ]]
 	then
 		source setup-curl;
 else
@@ -87,7 +87,7 @@ fi
 if [[ -f "setup-python-minimal.sh" ]]
 	then
 		source setup-python-minimal.sh;
-elif [[ ! -f "setup-python-minimal.sh" ]]
+elif [[ ! -f "setup-python-minimal.sh" && -x $(which setup-python-minimal) ]]
 	then
 		source setup-python-minimal;
 else
@@ -186,15 +186,15 @@ NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 [[ $NPM_VERSION == "next" ]] && \
 NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 
-[[ $(("$(echo $NPM_VERSION | grep -o '^[0-9]')")) < 6 ]] && \
+(( $(("$(echo $NPM_VERSION | grep -o '^[0-9]')")) < 6 )) && \
 NPM_VERSION="next-6";
 
 NPMV=$NPM_VERSION;
 
-[[ $(("$(npm --version | grep -o '^[0-9]')")) >= 6 ]] && \
+(( $(("$(npm --version | grep -o '^[0-9]')")) >= 6 )) && \
 npm install npm@$NPMV --global --loglevel=verbose;
 
-[[ $(("$(npm --version | grep -o '^[0-9]')")) < 6 ]] && \
+(( $(("$(npm --version | grep -o '^[0-9]')")) < 6 )) && \
 export npm_install=6.14.18 && curl -qL https://www.npmjs.com/install.sh | bash;
 
 #;	@note: set npm python path.
