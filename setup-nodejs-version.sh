@@ -52,17 +52,47 @@ set +vx; eval "$SHELL_STATE";
 #;	@section: setup nodejs version:
 
 #;	@section: install needed module;
-[[ -f "setup-jq.sh" ]] && \
-source setup-jq.sh;
+REPOSITORY_URI_PATH="https://raw.githubusercontent.com/volkovasystem/setup-nodejs-version/main";
 
-[[ ! -f "setup-jq.sh" ]] && \
-source setup-jq;
+if [[ -f "setup-jq.sh" ]]
+	then
+		source setup-jq.sh;
+elif [[ ! -f "setup-jq.sh" ]]
+	then
+		source setup-jq;
+else
+	source <(curl -qL "$REPOSITORY_URI_PATH/setup-jq.sh");
+fi
 
-[[ -f "setup-python-minimal.sh" ]] && \
-source setup-python-minimal.sh;
+if [[ -f "setup-wget.sh" ]]
+	then
+		source setup-wget.sh;
+elif [[ ! -f "setup-wget.sh" ]]
+	then
+		source setup-wget;
+else
+	source <(curl -qL "$REPOSITORY_URI_PATH/setup-wget.sh");
+fi
 
-[[ ! -f "setup-python-minimal.sh" ]] && \
-source setup-python-minimal;
+if [[ -f "setup-curl.sh" ]]
+	then
+		source setup-curl.sh;
+elif [[ ! -f "setup-curl.sh" ]]
+	then
+		source setup-curl;
+else
+	source <(curl -qL "$REPOSITORY_URI_PATH/setup-curl.sh");
+fi
+
+if [[ -f "setup-python-minimal.sh" ]]
+	then
+		source setup-python-minimal.sh;
+elif [[ ! -f "setup-python-minimal.sh" ]]
+	then
+		source setup-python-minimal;
+else
+	source <(curl -qL "$REPOSITORY_URI_PATH/setup-python-minimal.sh");
+fi
 
 PLATFORM_ROOT_DIRECTORY_PATH="";
 PRDP=""
@@ -146,6 +176,9 @@ npm config set update-notifier false --global 2> /dev/null;
 npm config set fund false --global 2> /dev/null;
 
 #;	@note: update npm;
+[[ -z "$TARGET_NPM_VERSION" ]] && \
+TARGET_NPM_VERSION="6.14.18";
+
 NPM_VERSION="$TARGET_NPM_VERSION";
 [[ -z "$NPM_VERSION" ]] && \
 NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
@@ -153,8 +186,16 @@ NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 [[ $NPM_VERSION == "next" ]] && \
 NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 
+[[ $(("$(echo $NPM_VERSION | grep -o '^[0-9]')")) < 6 ]] && \
+NPM_VERSION="next-6";
+
 NPMV=$NPM_VERSION;
-npm install npm@$NPMV --global;
+
+[[ $(("$(npm --version | grep -o '^[0-9]')")) >= 6 ]] && \
+npm install npm@$NPMV --global --loglevel=verbose;
+
+[[ $(("$(npm --version | grep -o '^[0-9]')")) < 6 ]] && \
+export npm_install=6.14.18 && curl -qL https://www.npmjs.com/install.sh | bash;
 
 #;	@note: set npm python path.
 [[ -x $(which python) && ! -x $(npm config get python --global) ]] && \
