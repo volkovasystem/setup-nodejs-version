@@ -16,6 +16,8 @@
 	},
 	"bin": {
 		"setup-jq": "setup-jq.sh",
+		"setup-wget": "setup-wget.sh",
+		"setup-curl": "setup-curl.sh",
 		"setup-python-minimal": "setup-python-minimal.sh",
 		"setup-nodejs-version": "setup-nodejs-version.sh",
 		"snjsv": "setup-nodejs-version.sh"
