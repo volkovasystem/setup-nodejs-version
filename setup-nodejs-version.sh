@@ -59,10 +59,20 @@ curl --version;
 
 REPOSITORY_URI_PATH="https://raw.githubusercontent.com/volkovasystem/setup-nodejs-version/main";
 
-if [[ -f "setup-jq.sh" ]]
+if 		[[ 								\
+				-f "setup-jq.sh"		\
+			&&							\
+				! -x $(which jq) 		\
+		]]
 	then
 		source setup-jq.sh;
-elif [[ ! -f "setup-jq.sh" && -x $(which setup-jq) ]]
+elif 	[[ 								\
+				! -f "setup-jq.sh"		\
+			&&							\
+				-x $(which setup-jq)	\
+			&&							\
+				! -x $(which jq)		\
+		]]
 	then
 		source setup-jq;
 elif [[ ! -x $(which jq) ]]
@@ -72,10 +82,10 @@ else
 		jq --version;
 fi
 
-if [[ -f "setup-wget.sh" ]]
+if [[ -f "setup-wget.sh" && ! -x $(which wget) ]]
 	then
 		source setup-wget.sh;
-elif [[ ! -f "setup-wget.sh" && -x $(which setup-wget) ]]
+elif [[ ! -f "setup-wget.sh" && -x $(which setup-wget) && ! -x $(which wget) ]]
 	then
 		source setup-wget;
 elif [[ ! -x $(which wget) ]]
@@ -85,10 +95,10 @@ else
 		wget --version;
 fi
 
-if [[ -f "setup-python-minimal.sh" ]]
+if [[ -f "setup-python-minimal.sh" && ( ! -x $(which python2) || ! -x $(which python3) ) ]]
 	then
 		source setup-python-minimal.sh;
-elif [[ ! -f "setup-python-minimal.sh" && -x $(which setup-python-minimal) ]]
+elif [[ ! -f "setup-python-minimal.sh" && -x $(which setup-python-minimal) && ( ! -x $(which python2) || ! -x $(which python3) ) ]]
 	then
 		source setup-python-minimal;
 elif [[ ! -x $(which python2) || ! -x $(which python3) ]]
