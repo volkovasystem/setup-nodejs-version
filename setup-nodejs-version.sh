@@ -52,6 +52,11 @@ set +vx; eval "$SHELL_STATE";
 #;	@section: setup nodejs version:
 
 #;	@section: install needed module;
+[[ ! -x /usr/bin/curl ]] && \
+sudo apt-get install -y curl;
+
+curl --version;
+
 REPOSITORY_URI_PATH="https://raw.githubusercontent.com/volkovasystem/setup-nodejs-version/main";
 
 if [[ -f "setup-jq.sh" ]]
@@ -60,8 +65,11 @@ if [[ -f "setup-jq.sh" ]]
 elif [[ ! -f "setup-jq.sh" && -x $(which setup-jq) ]]
 	then
 		source setup-jq;
+elif [[ ! -x $(which jq) ]]
+	then
+		source <(curl -sqL "$REPOSITORY_URI_PATH/setup-jq.sh");
 else
-	source <(curl -qL "$REPOSITORY_URI_PATH/setup-jq.sh");
+		jq --version;
 fi
 
 if [[ -f "setup-wget.sh" ]]
@@ -70,18 +78,11 @@ if [[ -f "setup-wget.sh" ]]
 elif [[ ! -f "setup-wget.sh" && -x $(which setup-wget) ]]
 	then
 		source setup-wget;
-else
-	source <(curl -qL "$REPOSITORY_URI_PATH/setup-wget.sh");
-fi
-
-if [[ -f "setup-curl.sh" ]]
+elif [[ ! -x $(which wget) ]]
 	then
-		source setup-curl.sh;
-elif [[ ! -f "setup-curl.sh" && -x $(which setup-curl) ]]
-	then
-		source setup-curl;
+		source <(curl -sqL "$REPOSITORY_URI_PATH/setup-wget.sh");
 else
-	source <(curl -qL "$REPOSITORY_URI_PATH/setup-curl.sh");
+		wget --version;
 fi
 
 if [[ -f "setup-python-minimal.sh" ]]
@@ -90,8 +91,12 @@ if [[ -f "setup-python-minimal.sh" ]]
 elif [[ ! -f "setup-python-minimal.sh" && -x $(which setup-python-minimal) ]]
 	then
 		source setup-python-minimal;
+elif [[ ! -x $(which python2) || ! -x $(which python3) ]]
+	then
+		source <(curl -sqL "$REPOSITORY_URI_PATH/setup-python-minimal.sh");
 else
-	source <(curl -qL "$REPOSITORY_URI_PATH/setup-python-minimal.sh");
+		python2 --version;
+		python3 --version;
 fi
 
 PLATFORM_ROOT_DIRECTORY_PATH="";
@@ -193,10 +198,10 @@ NPM_VERSION="next-6";
 NPMV=$NPM_VERSION;
 
 (( $(($(npm --version | grep -o '^[0-9]'))) >= 6 )) && \
-npm install npm@$NPMV --global --loglevel=verbose;
+npm install npm@$NPMV --global;
 
 (( $(($(npm --version | grep -o '^[0-9]'))) < 6 )) && \
-export npm_install=6.14.18 && curl -qL https://www.npmjs.com/install.sh | bash;
+export npm_install=6.14.18 && curl -sqL https://www.npmjs.com/install.sh | bash;
 
 #;	@note: set npm python path.
 [[ -x $(which python) && ! -x $(npm config get python --global) ]] && \
@@ -218,6 +223,9 @@ echo "npm using python3";
 
 echo "node@$(node --version)";
 echo "npm@$(npm --version)";
+
+[[ ! -x $(which setup-nodejs-version) ]] && \
+npm install @volkovasystem/setup-nodejs-version --global;
 
 #;	@section: setup nodejs version;
 
