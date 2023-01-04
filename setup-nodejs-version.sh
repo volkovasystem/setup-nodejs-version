@@ -177,6 +177,7 @@ npm config set fund false --global 2> /dev/null;
 
 #;	@note: update npm;
 [[ -z "$TARGET_NPM_VERSION" ]] && \
+(( $(("$(npm --version | grep -o '^[0-9]')")) < 6 )) && \
 TARGET_NPM_VERSION="6.14.18";
 
 NPM_VERSION="$TARGET_NPM_VERSION";
