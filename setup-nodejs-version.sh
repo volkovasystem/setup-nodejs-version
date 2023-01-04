@@ -82,10 +82,20 @@ else
 		jq --version;
 fi
 
-if [[ -f "setup-wget.sh" && ! -x $(which wget) ]]
+if  	[[								\
+				-f "setup-wget.sh"		\
+			&&							\
+				! -x $(which wget)		\
+		]]
 	then
 		source setup-wget.sh;
-elif [[ ! -f "setup-wget.sh" && -x $(which setup-wget) && ! -x $(which wget) ]]
+elif 	[[								\
+				! -f "setup-wget.sh"	\
+			&&							\
+				-x $(which setup-wget)	\
+			&&							\
+				! -x $(which wget)		\
+		]]
 	then
 		source setup-wget;
 elif [[ ! -x $(which wget) ]]
@@ -95,10 +105,28 @@ else
 		wget --version;
 fi
 
-if [[ -f "setup-python-minimal.sh" && ( ! -x $(which python2) || ! -x $(which python3) ) ]]
+if  	[[											\
+				-f "setup-python-minimal.sh"		\
+			&&										\
+				(									\
+						! -x $(which python2)		\
+					||								\
+						! -x $(which python3)		\
+				)									\
+		]]
 	then
 		source setup-python-minimal.sh;
-elif [[ ! -f "setup-python-minimal.sh" && -x $(which setup-python-minimal) && ( ! -x $(which python2) || ! -x $(which python3) ) ]]
+elif 	[[											\
+				! -f "setup-python-minimal.sh"		\
+			&&										\
+				-x $(which setup-python-minimal)	\
+			&&										\
+				(									\
+						! -x $(which python2)		\
+					||								\
+						! -x $(which python3)		\
+				)									\
+		]]
 	then
 		source setup-python-minimal;
 elif [[ ! -x $(which python2) || ! -x $(which python3) ]]
@@ -127,10 +155,10 @@ NODEJS_VERSION_PATH="$PRDP/$NVPN";
 NVP=$NODEJS_VERSION_PATH;
 
 #;	@note: set nodejs version;
-CURRENT_NODEJS_LTS_VERSION="$(\
-wget -qO- https://nodejs.org/download/release/index.json | \
-jq '.[] | select(.lts!=false) | .version' | \
-grep -Eo '[0-9]+.[0-9]+.[0-9]+'| \
+CURRENT_NODEJS_LTS_VERSION="$(								\
+wget -qO- https://nodejs.org/download/release/index.json | 	\
+jq '.[] | select(.lts!=false) | .version' | 				\
+grep -Eo '[0-9]+.[0-9]+.[0-9]+'|							\
 head -n 1)";
 NODEJS_VERSION="$TARGET_VERSION";
 [[ -z "$NODEJS_VERSION" ]] && \
@@ -166,21 +194,21 @@ wget $NDUP -P $NVP;
 tar -xzvf $NPFP -C $NVP;
 
 #;	@note: set nodejs path;
-NODEJS_PATH="$(\
-ls -d $NVP/$(ls $NVP | \
-grep $NV | \
-grep -v "\.tar\.gz$"\
+NODEJS_PATH="$(			\
+ls -d $NVP/$(ls $NVP |	\
+grep $NV |				\
+grep -v "\.tar\.gz$"	\
 ) 2>/dev/null)/bin";
 NP=$NODEJS_PATH;
 
 #;	@note: clean nodejs binary path;
 [[ $(echo $PATH | grep -oP $NVPN | head -1) == $NVPN ]] && \
-export PATH="$(\
-echo $PATH | \
-tr ":" "\n" | \
-grep -v $NVPN | \
-tr "\n" ":" | \
-sed "s/:\{2,\}/:/g" | \
+export PATH="$(			\
+echo $PATH |			\
+tr ":" "\n" |			\
+grep -v $NVPN |			\
+tr "\n" ":" |			\
+sed "s/:\{2,\}/:/g" |	\
 sed "s/:$//")";
 
 #;	@note: export nodejs binary path;
