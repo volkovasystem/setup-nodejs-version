@@ -187,14 +187,12 @@ NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 [[ $NPM_VERSION == "next" ]] && \
 NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 
+echo $NPM_VERSION;
+
 (( $(($(echo $NPM_VERSION | grep -o '^[0-9]'))) < 6 )) && \
 NPM_VERSION="next-6";
 
 NPMV=$NPM_VERSION;
-
-echo $TARGET_NPM_VERSION;
-echo $NPM_VERSION;
-echo $(($(npm --version | grep -o '^[0-9]')));
 
 (( $(($(npm --version | grep -o '^[0-9]'))) >= 6 )) && \
 npm install npm@$NPMV --global --loglevel=verbose;
