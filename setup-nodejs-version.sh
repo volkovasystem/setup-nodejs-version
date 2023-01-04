@@ -185,21 +185,15 @@ npm config set fund false --global 2> /dev/null;
 (( $(($(npm --version | grep -o '^[0-9]'))) < 6 )) && \
 TARGET_NPM_VERSION="6.14.18";
 
-echo "1. $TARGET_VERSION";
-
 NPM_VERSION="$TARGET_NPM_VERSION";
 [[ -z "$NPM_VERSION" ]] && \
 NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
-
-echo "2. $NPM_VERSION";
 
 [[ $NPM_VERSION == "next" ]] && \
 NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 
 (( $(($(echo $NPM_VERSION | grep -o '[0-9]'))) < 6 )) && \
 NPM_VERSION="next-6";
-
-echo "3. $NPM_VERSION";
 
 NPMV=$NPM_VERSION;
 
