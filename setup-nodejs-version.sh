@@ -187,9 +187,7 @@ NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 [[ $NPM_VERSION == "next" ]] && \
 NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 
-echo $NPM_VERSION;
-
-(( $(($(echo $NPM_VERSION | grep -o '^[0-9]'))) < 6 )) && \
+(( $(($(echo $NPM_VERSION | grep -o '[0-9]'))) < 6 )) && \
 NPM_VERSION="next-6";
 
 NPMV=$NPM_VERSION;
