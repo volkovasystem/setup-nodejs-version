@@ -175,6 +175,8 @@ export PATH="$PATH:$NP";
 npm config set update-notifier false --global 2> /dev/null;
 npm config set fund false --global 2> /dev/null;
 
+echo $(npm --version);
+
 #;	@note: update npm;
 [[ -z "$TARGET_NPM_VERSION" ]] && \
 (( $(("$(npm --version | grep -o '^[0-9]')")) < 6 )) && \
