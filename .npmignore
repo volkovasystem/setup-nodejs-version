@@ -5,5 +5,7 @@
 *.test.js
 
 !setup-jq.sh
+!setup-wget.sh
+!setup-curl.sh
 !setup-python-minimal.sh
 !setup-nodejs-version.sh
