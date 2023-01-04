@@ -175,11 +175,9 @@ export PATH="$PATH:$NP";
 npm config set update-notifier false --global 2> /dev/null;
 npm config set fund false --global 2> /dev/null;
 
-echo $(npm --version);
-
 #;	@note: update npm;
 [[ -z "$TARGET_NPM_VERSION" ]] && \
-(( $((npm --version | grep -o '^[0-9]')) < 6 )) && \
+(( $(($(npm --version | grep -o '^[0-9]'))) < 6 )) && \
 TARGET_NPM_VERSION="6.14.18";
 
 NPM_VERSION="$TARGET_NPM_VERSION";
@@ -189,19 +187,19 @@ NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 [[ $NPM_VERSION == "next" ]] && \
 NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 
-(( $((echo $NPM_VERSION | grep -o '^[0-9]')) < 6 )) && \
+(( $(($(echo $NPM_VERSION | grep -o '^[0-9]'))) < 6 )) && \
 NPM_VERSION="next-6";
 
 NPMV=$NPM_VERSION;
 
 echo $TARGET_NPM_VERSION;
 echo $NPM_VERSION;
-echo $((npm --version | grep -o '^[0-9]'));
+echo $(($(npm --version | grep -o '^[0-9]')));
 
-(( $((npm --version | grep -o '^[0-9]')) >= 6 )) && \
+(( $(($(npm --version | grep -o '^[0-9]'))) >= 6 )) && \
 npm install npm@$NPMV --global --loglevel=verbose;
 
-(( $((npm --version | grep -o '^[0-9]')) < 6 )) && \
+(( $(($(npm --version | grep -o '^[0-9]'))) < 6 )) && \
 export npm_install=6.14.18 && curl -qL https://www.npmjs.com/install.sh | bash;
 
 #;	@note: set npm python path.
