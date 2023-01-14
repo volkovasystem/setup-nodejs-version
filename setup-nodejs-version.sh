@@ -236,7 +236,7 @@ NPM_VERSION="next-6";
 NPMV=$NPM_VERSION;
 
 (( $(($(npm --version | grep -o '^[0-9]'))) >= 6 )) && \
-npm install npm@$NPMV --global;
+npm install npm@$NPMV --yes --global;
 
 (( $(($(npm --version | grep -o '^[0-9]'))) < 6 )) && \
 export npm_install=6.14.18 && curl -sqL https://www.npmjs.com/install.sh | bash;
@@ -263,7 +263,7 @@ echo "node@$(node --version)";
 echo "npm@$(npm --version)";
 
 [[ ! -x $(which setup-nodejs-version) ]] && \
-npm install @volkovasystem/setup-nodejs-version --global;
+npm install @volkovasystem/setup-nodejs-version --yes --global;
 
 #;	@section: setup nodejs version;
 
