@@ -263,7 +263,7 @@ echo "node@$(node --version)";
 echo "npm@$(npm --version)";
 
 [[ ! -x $(which setup-nodejs-version) ]] && \
-npm install @volkovasystem/setup-nodejs-version --yes --global;
+npm install @volkovasystem/setup-nodejs-version --yes --force --global;
 
 #;	@section: setup nodejs version;
 
