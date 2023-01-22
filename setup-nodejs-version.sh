@@ -268,8 +268,3 @@ npm install @volkovasystem/setup-nodejs-version --yes --force --global;
 #;	@section: setup nodejs version;
 
 set -o history;
-
-echo $SHLVL;
-
-[[ $SHLVL -lt 2 ]] && \
-exec $SHELL -i;
