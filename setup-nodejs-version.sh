@@ -4,18 +4,33 @@ set +o history;
 
 SHELL_STATE="$(set +o)";
 
-set \
--o noclobber \
--o nounset \
--o pipefail;
+#; @todo-note: Modify parameter to include flow for optional and required.;
+#; @todo-note: Modify to add fallback and handler for optional and required parameter.;
 
-PARAMETER="$(\
-getopt \
---quiet \
---alternative \
---options v:n: \
---longoptions version:,npm: \
--- "$@"\
+SHORT_PARAMETER_LIST=(	\
+	h:					\
+	v:					\
+	n:					\
+	l:					\
+);
+
+LONG_PARAMETER_LIST=(	\
+	help:,				\
+	version:,			\
+	npm:,				\
+	local:				\
+);
+
+SHORT_PARAMETER_LIST=$(echo $(IFS='';echo "${SHORT_PARAMETER_LIST[*]// /}";IFS=$' \t\n'));
+LONG_PARAMETER_LIST=$(echo $(IFS='';echo "${LONG_PARAMETER_LIST[*]// /}";IFS=$' \t\n'));
+
+PARAMETER="$(						\
+getopt								\
+--quiet								\
+--alternative						\
+--options $SHORT_PARAMETER_LIST		\
+--longoptions $LONG_PARAMETER_LIST	\
+-- "$@"								\
 )";
 
 [[ $? > 0 ]] && \
@@ -23,18 +38,27 @@ exit 1;
 
 TARGET_VERSION=;
 TARGET_NPM_VERSION=;
+LOCAL_SETUP_STATUS=;
 
 eval set -- "$PARAMETER";
 
 while true;
 do
 	case "$1" in
+		-h | --help )
+			HELP_PROMPT_STATUS=true;
+			shift 2
+			;;
 		-v | --version )
 			TARGET_VERSION=$2;
 			shift 2
 			;;
 		-n | --npm )
 			TARGET_NPM_VERSION=$2;
+			shift 2
+			;;
+		-l | --local )
+			LOCAL_SETUP_STATUS=true;
 			shift 2
 			;;
 		-- )
@@ -51,100 +75,125 @@ set +vx; eval "$SHELL_STATE";
 
 #;	@section: setup nodejs version:
 
+USER_HOME="$HOME";
+[[ "$HOME" == "/root" ]] &&	\
+USER_HOME=$(getent passwd $SUDO_USER | cut -d: -f6);
+
+PLATFORM_ROOT_DIRECTORY_PATH=;
+PRDP=;
+
+[[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&				\
+[[ "$PLATFORM_ROOT_DIRECTORY_PATH" == "$PRDP" ]] &&		\
+[[ "${!PLATFORM_PARENT_DIRECTORY_PATH@a}" == *x* ]] &&	\
+[[ ! -z "$PLATFORM_PARENT_DIRECTORY_PATH" ]] &&			\
+PLATFORM_ROOT_DIRECTORY_PATH="$USER_HOME/$PLATFORM_PARENT_DIRECTORY_PATH";
+
+[[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&				\
+[[ "$PLATFORM_ROOT_DIRECTORY_PATH" == "$PRDP" ]] &&		\
+[[ -z "$PLATFORM_PARENT_DIRECTORY_PATH" ]] &&			\
+PLATFORM_ROOT_DIRECTORY_PATH="$USER_HOME";
+
+PRDP="$PLATFORM_ROOT_DIRECTORY_PATH";
+
+SYSTEM_TOOL_PATH=;
+
+[[ "${!SYSTEM_VALUE_NAMESPACE@a}" == *x* ]] &&	\
+[[ ! -z "$SYSTEM_VALUE_NAMESPACE" ]] &&			\
+SYSTEM_TOOL_PATH="$PRDP/$SYSTEM_VALUE_NAMESPACE-tool/tool";
+
 #;	@section: install needed module;
-[[ ! -x /usr/bin/curl ]] && \
+[[ ! -x /usr/bin/curl ]] &&	\
 sudo apt-get install -y curl;
 
+[[ -x /usr/bin/curl ]] &&	\
 curl --version;
 
 REPOSITORY_URI_PATH="https://raw.githubusercontent.com/volkovasystem/setup-nodejs-version/main";
 
-if 		[[ 								\
-				-f "setup-jq.sh"		\
-			&&							\
-				! -x $(which jq) 		\
-		]]
+[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+REPOSITORY_URI_PATH=$SYSTEM_TOOL_PATH;
+
+if 												\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+		[[ -f "setup-jq.sh" ]] &&				\
+		[[ ! -x $(which jq) ]]
 	then
 		source setup-jq.sh;
-elif 	[[ 								\
-				! -f "setup-jq.sh"		\
-			&&							\
-				-x $(which setup-jq)	\
-			&&							\
-				! -x $(which jq)		\
-		]]
+elif 											\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+		[[ ! -f "setup-jq.sh" ]] &&				\
+		[[ -x $(which setup-jq)	]] &&			\
+		[[ ! -x $(which jq)	]]
 	then
 		source setup-jq;
-elif [[ ! -x $(which jq) ]]
+elif 											\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+		[[ ! -x $(which jq) ]]
+	then
+		source "$REPOSITORY_URI_PATH/setup-jq.sh";
+elif 											\
+		[[ "$LOCAL_SETUP_STATUS" != true ]] &&	\
+		[[ ! -x $(which jq) ]]
 	then
 		source <(curl -sqL "$REPOSITORY_URI_PATH/setup-jq.sh");
 else
 		jq --version;
 fi
 
-if  	[[								\
-				-f "setup-wget.sh"		\
-			&&							\
-				! -x $(which wget)		\
-		]]
+if 												\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+		[[ -f "setup-wget.sh" ]] &&				\
+		[[ ! -x $(which wget) ]]
 	then
 		source setup-wget.sh;
-elif 	[[								\
-				! -f "setup-wget.sh"	\
-			&&							\
-				-x $(which setup-wget)	\
-			&&							\
-				! -x $(which wget)		\
-		]]
+elif 											\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+		[[ ! -f "setup-wget.sh"	]] &&			\
+		[[ -x $(which setup-wget) ]] &&			\
+		[[ ! -x $(which wget) ]]
 	then
 		source setup-wget;
-elif [[ ! -x $(which wget) ]]
+elif 											\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+		[[ ! -x $(which wget) ]]
+	then
+		source "$REPOSITORY_URI_PATH/setup-wget.sh";
+elif 											\
+	 	[[ "$LOCAL_SETUP_STATUS" != true ]] &&	\
+		[[ ! -x $(which wget) ]]
 	then
 		source <(curl -sqL "$REPOSITORY_URI_PATH/setup-wget.sh");
 else
 		wget --version;
 fi
 
-if  	[[											\
-				-f "setup-python-minimal.sh"		\
-			&&										\
-				(									\
-						! -x $(which python2)		\
-					||								\
-						! -x $(which python3)		\
-				)									\
-		]]
+if 																\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&					\
+		[[ -f "setup-python-minimal.sh" ]] &&					\
+		[[ ! -x $(which python2) ||	! -x $(which python3) ]]
 	then
 		source setup-python-minimal.sh;
-elif 	[[											\
-				! -f "setup-python-minimal.sh"		\
-			&&										\
-				-x $(which setup-python-minimal)	\
-			&&										\
-				(									\
-						! -x $(which python2)		\
-					||								\
-						! -x $(which python3)		\
-				)									\
-		]]
+elif 															\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&					\
+		[[ ! -f "setup-python-minimal.sh" ]] && 				\
+		[[ -x $(which setup-python-minimal) ]] &&				\
+		[[ ! -x $(which python2) || ! -x $(which python3) ]]
 	then
 		source setup-python-minimal;
-elif [[ ! -x $(which python2) || ! -x $(which python3) ]]
+elif 															\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&					\
+		[[ ! -x $(which python2) || ! -x $(which python3) ]]
+	then
+		source "$REPOSITORY_URI_PATH/setup-python-minimal.sh";
+elif 															\
+		[[ "$LOCAL_SETUP_STATUS" != true ]] &&					\
+		[[ ! -x $(which python2) || ! -x $(which python3) ]]
 	then
 		source <(curl -sqL "$REPOSITORY_URI_PATH/setup-python-minimal.sh");
 else
 		python2 --version;
 		python3 --version;
 fi
-
-PLATFORM_ROOT_DIRECTORY_PATH="";
-PRDP=""
-
-#;	@section: set platform root directory;
-[[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] && \
-[[ $PLATFORM_ROOT_DIRECTORY_PATH == $PRDP ]] && \
-PLATFORM_ROOT_DIRECTORY_PATH=$HOME;
-PRDP=$PLATFORM_ROOT_DIRECTORY_PATH;
 
 #;	@note: set nodejs version path namespace;
 NODEJS_VERSION_PATH_NAMESPACE="nodejs-version";
@@ -160,6 +209,7 @@ wget -qO- https://nodejs.org/download/release/index.json | 	\
 jq '.[] | select(.lts!=false) | .version' | 				\
 grep -Eo '[0-9]+.[0-9]+.[0-9]+'|							\
 head -n 1)";
+
 NODEJS_VERSION="$TARGET_VERSION";
 [[ -z "$NODEJS_VERSION" ]] && \
 NODEJS_VERSION=$CURRENT_NODEJS_LTS_VERSION;
@@ -202,13 +252,13 @@ grep -v "\.tar\.gz$"	\
 NP=$NODEJS_PATH;
 
 #;	@note: clean nodejs binary path;
-[[ $(echo $PATH | grep -oP $NVPN | head -1) == $NVPN ]] && \
-export PATH="$(			\
-echo $PATH |			\
-tr ":" "\n" |			\
-grep -v $NVPN |			\
-tr "\n" ":" |			\
-sed "s/:\{2,\}/:/g" |	\
+[[ $(echo $PATH | grep -oP $NVPN | head -1) == $NVPN ]] &&	\
+export PATH="$(												\
+echo $PATH |												\
+tr ":" "\n" |												\
+grep -v $NVPN |												\
+tr "\n" ":" |												\
+sed "s/:\{2,\}/:/g" |										\
 sed "s/:$//")";
 
 #;	@note: export nodejs binary path;
@@ -239,18 +289,21 @@ NPMV=$NPM_VERSION;
 npm install npm@$NPMV --yes --global;
 
 (( $(($(npm --version | grep -o '^[0-9]'))) < 6 )) && \
-export npm_install=6.14.18 && curl -sqL https://www.npmjs.com/install.sh | bash;
+export npm_install=6.14.18 && curl -qL https://raw.githubusercontent.com/npm/cli/v6.14.18/scripts/install.sh | bash;
 
 #;	@note: set npm python path.
-[[ -x $(which python) && ! -x $(npm config get python --global) ]] && \
+[[ -x $(which python) ]] &&						\
+[[ ! -x $(npm config get python --global) ]] &&	\
 npm config set python=/usr/bin/python --global 2> /dev/null;
 
 #;	@note: set npm python path.
-[[ -x $(which python2) && ! -x $(npm config get python --global) ]] && \
+[[ -x $(which python2) ]] &&					\
+[[ ! -x $(npm config get python --global) ]] &&	\
 npm config set python=/usr/bin/python2 --global 2> /dev/null;
 
 #;	@note: set npm python path.
-[[ -x $(which python3) && ! -x $(npm config get python --global) ]] && \
+[[ -x $(which python3) ]] &&					\
+[[ ! -x $(npm config get python --global) ]] &&	\
 npm config set python=/usr/bin/python3 --global 2> /dev/null;
 
 [[ "$(which python2)" == "$(npm config get python --global)" ]] && \
@@ -262,7 +315,8 @@ echo "npm using python3";
 echo "node@$(node --version)";
 echo "npm@$(npm --version)";
 
-[[ ! -x $(which setup-nodejs-version) ]] && \
+[[ "$LOCAL_SETUP_STATUS" = true ]] &&		\
+[[ ! -x $(which setup-nodejs-version) ]] &&	\
 npm install @volkovasystem/setup-nodejs-version --yes --force --global;
 
 #;	@section: setup nodejs version;
