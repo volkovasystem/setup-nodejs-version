@@ -33,7 +33,7 @@ getopt								\
 -- "$@"								\
 )";
 
-[[ $? > 0 ]] && \
+[[ $? > 0 ]] &&	\
 exit 1;
 
 TARGET_VERSION=;
@@ -79,25 +79,22 @@ USER_HOME="$HOME";
 [[ "$HOME" == "/root" ]] &&	\
 USER_HOME=$(getent passwd $SUDO_USER | cut -d: -f6);
 
-PLATFORM_ROOT_DIRECTORY_PATH=;
-PRDP=;
+[[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&				\
+[[ "$PLATFORM_ROOT_DIRECTORY_PATH" == "$PRDP" ]] &&		\
+[[ "${PLATFORM_PARENT_DIRECTORY@a}" == *x* ]] &&		\
+[[ ! -z "$PLATFORM_PARENT_DIRECTORY" ]] &&				\
+PLATFORM_ROOT_DIRECTORY_PATH="$USER_HOME/$PLATFORM_PARENT_DIRECTORY";
 
 [[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&				\
 [[ "$PLATFORM_ROOT_DIRECTORY_PATH" == "$PRDP" ]] &&		\
-[[ "${!PLATFORM_PARENT_DIRECTORY_PATH@a}" == *x* ]] &&	\
-[[ ! -z "$PLATFORM_PARENT_DIRECTORY_PATH" ]] &&			\
-PLATFORM_ROOT_DIRECTORY_PATH="$USER_HOME/$PLATFORM_PARENT_DIRECTORY_PATH";
-
-[[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&				\
-[[ "$PLATFORM_ROOT_DIRECTORY_PATH" == "$PRDP" ]] &&		\
-[[ -z "$PLATFORM_PARENT_DIRECTORY_PATH" ]] &&			\
+[[ -z "$PLATFORM_PARENT_DIRECTORY" ]] &&				\
 PLATFORM_ROOT_DIRECTORY_PATH="$USER_HOME";
 
 PRDP="$PLATFORM_ROOT_DIRECTORY_PATH";
 
 SYSTEM_TOOL_PATH=;
 
-[[ "${!SYSTEM_VALUE_NAMESPACE@a}" == *x* ]] &&	\
+[[ "${SYSTEM_VALUE_NAMESPACE@a}" == *x* ]] &&	\
 [[ ! -z "$SYSTEM_VALUE_NAMESPACE" ]] &&			\
 SYSTEM_TOOL_PATH="$PRDP/$SYSTEM_VALUE_NAMESPACE-tool/tool";
 
