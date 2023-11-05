@@ -4,6 +4,8 @@
 
 !.npmignore
 
+!.npmrc
+
 !.editorconfig
 
 !LICENSE
@@ -31,6 +33,8 @@
 !*/.gitignore
 
 !*/.npmignore
+
+!*/.npmrc
 
 !*/.editorconfig
 
