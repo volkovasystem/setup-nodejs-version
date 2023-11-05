@@ -6,4 +6,5 @@ npm run reset-module &&	\
 npm run setup-module &&	\
 npm run build-module &&	\
 npm run test-module &&	\
-npm run clean-module;
+npm run clean-module &&	\
+npm run reduce-module;

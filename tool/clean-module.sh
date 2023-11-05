@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-npx --yes @volkovasystem/format-package-json-file;
+rm -rf "$MODULE_ROOT_DIRECTORY_PATH/node_modules" || true &&		\
+rm -fv "$MODULE_ROOT_DIRECTORY_PATH/package-lock.json" || true &&	\
+npm cache clean --force --loglevel=error;

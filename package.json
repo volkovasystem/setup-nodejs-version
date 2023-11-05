@@ -5,21 +5,28 @@
 	"description": "Setup NodeJS Version",
 	"main": "setup-nodejs-version.js",
 	"scripts": {
-		"clean": "source ./tool/clean-module.sh",
-		"check": "source ./tool/check-module.sh",
-		"test": "node ./setup-nodejs-version.test.js",
-		"stage": "source ./tool/stage-module.sh",
-		"prepublishOnly": "npm run stage",
-		"postpublish": "npm run clean && npm run check",
-		"setup-nodejs-version": "source ./setup-nodejs-version.sh",
-		"snjsv": "source ./setup-nodejs-version.sh"
+		"check-module": "source ./setting/default-tool-setting.sh && ./tool/check-module.sh",
+		"reset-module": "source ./setting/default-tool-setting.sh && ./tool/reset-module.sh",
+		"clean-module": "source ./setting/default-tool-setting.sh && ./tool/clean-module.sh",
+		"setup-module": "source ./setting/default-tool-setting.sh && ./tool/setup-module.sh",
+		"bundle-module": "source ./setting/default-tool-setting.sh && ./tool/bundle-module.sh",
+		"compress-module": "source ./setting/default-tool-setting.sh && ./tool/compress-module.sh",
+		"resolve-module": "source ./setting/default-tool-setting.sh && ./tool/resolve-module.sh",
+		"build-module": "source ./setting/default-tool-setting.sh && ./tool/build-module.sh",
+		"test-module": "source ./setting/default-tool-setting.sh && ./tool/test-module.sh",
+		"reduce-module": "source ./setting/default-tool-setting.sh && ./tool/reduce-module.sh",
+		"revert-module": "source ./setting/default-tool-setting.sh && ./tool/revert-module.sh",
+		"stage-module": "source ./setting/default-tool-setting.sh && ./tool/stage-module.sh",
+		"release-module": "source ./setting/default-tool-setting.sh && ./tool/release-module.sh",
+		"teardown-module": "source ./setting/default-tool-setting.sh && ./tool/teardown-module.sh",
+		"prepublishOnly": "npm run release-module",
+		"postpublish": "npm run teardown-module"
 	},
 	"bin": {
 		"setup-jq": "setup-jq.sh",
 		"setup-wget": "setup-wget.sh",
 		"setup-python-minimal": "setup-python-minimal.sh",
-		"setup-nodejs-version": "setup-nodejs-version.sh",
-		"snjsv": "setup-nodejs-version.sh"
+		"setup-nodejs-version": "setup-nodejs-version.sh"
 	},
 	"os": [
 		"linux",
