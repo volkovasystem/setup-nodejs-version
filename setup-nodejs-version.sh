@@ -1,5 +1,37 @@
 #!/usr/bin/env bash
 
+#	 @license:module:
+#	 	MIT License
+#
+#	 	Copyright (c) 2023-present Richeve S. Bebedor <richeve.bebedor@gmail.com>
+#
+#	 	@license:copyright:
+#	 		Richeve S. Bebedor
+#
+#	 		<@license:year-range:2023-present;>
+#
+#	 		<@license:contact-detail:richeve.bebedor@gmail.com;>
+#	 	@license:copyright;
+#
+#	 	Permission is hereby granted, free of charge, to any person obtaining a copy
+#	 	of this software and associated documentation files (the "Software"), to deal
+#	 	in the Software without restriction, including without limitation the rights
+#	 	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#	 	copies of the Software, and to permit persons to whom the Software is
+#	 	furnished to do so, subject to the following conditions:
+#
+#	 	The above copyright notice and this permission notice shall be included in all
+#	 	copies or substantial portions of the Software.
+#
+#	 	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#	 	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#	 	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#	 	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#	 	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#	 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#	 	SOFTWARE.
+#	 @license:module;
+
 set +o history;
 
 SHELL_STATE="$(set +o)";
@@ -100,7 +132,7 @@ SYSTEM_TOOL_PATH="$PRDP/$SYSTEM_VALUE_NAMESPACE-tool/tool";
 
 #;	@section: install needed module;
 [[ ! -x /usr/bin/curl ]] &&	\
-sudo apt-get install -y curl;
+sudo apt-get install curl --yes;
 
 [[ -x /usr/bin/curl ]] &&	\
 curl --version;
@@ -302,6 +334,8 @@ npm config set python=/usr/bin/python2 --global 2> /dev/null;
 [[ -x $(which python3) ]] &&					\
 [[ ! -x $(npm config get python --global) ]] &&	\
 npm config set python=/usr/bin/python3 --global 2> /dev/null;
+
+npm config set script-shell "/bin/bash";
 
 [[ "$(which python2)" == "$(npm config get python --global)" ]] && \
 echo "npm using python2";
