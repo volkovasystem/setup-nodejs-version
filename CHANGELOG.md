@@ -1,6 +1,6 @@
 #	CHANGELOG
 
-##	2023-11-05/0.1.0
+##	2023-11-06/0.1.0
 
 ###	UNRELEASED
 - undefined

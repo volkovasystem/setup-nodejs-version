@@ -20,7 +20,8 @@
 		"release-module": "source ./setting/default-tool-setting.sh && ./tool/release-module.sh",
 		"teardown-module": "source ./setting/default-tool-setting.sh && ./tool/teardown-module.sh",
 		"prepublishOnly": "npm run release-module",
-		"postpublish": "npm run teardown-module"
+		"postpublish": "npm run teardown-module",
+		"setup-nodejs-version": "node ./setup-nodejs-version.run.js"
 	},
 	"bin": {
 		"setup-jq": "setup-jq.sh",

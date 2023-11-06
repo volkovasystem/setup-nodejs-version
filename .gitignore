@@ -15,6 +15,9 @@
 !*.md
 !*.txt
 !*.xml
+!*.list
+!*.yaml
+!*.template
 
 !*.js
 !*.mjs
@@ -45,6 +48,9 @@
 !*/*.md
 !*/*.txt
 !*/*.xml
+!*/*.list
+!*/*.yaml
+!*/*.template
 
 !*/*.js
 !*/*.mjs
@@ -57,6 +63,11 @@
 !*/*.png
 !*/*.gif
 !*/*.svg
+
+grass/*
+grass/**/*.*
+!grass/*.gpg
+!grass/**/*.gpg
 
 package-lock.json
 
