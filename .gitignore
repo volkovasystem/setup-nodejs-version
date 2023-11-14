@@ -18,6 +18,8 @@
 !*.list
 !*.yaml
 !*.template
+!*.configure
+!*.dockerfile
 
 !*.js
 !*.mjs
@@ -51,6 +53,8 @@
 !*/*.list
 !*/*.yaml
 !*/*.template
+!*/*.configure
+!*/*.dockerfile
 
 !*/*.js
 !*/*.mjs

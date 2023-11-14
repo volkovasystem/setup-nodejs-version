@@ -2,21 +2,15 @@
 
 npm run clean-module;
 
+npx --yes --ignore-existing @volkovasystem/format-package-json-file;
+
 [[ -d "$TRASH_DIRECTORY" ]] &&											\
 [[ -f "$MODULE_ROOT_DIRECTORY_PATH/$MODULE_NAMESPACE_VALUE.js" ]] &&	\
 mv --force "$MODULE_ROOT_DIRECTORY_PATH/$MODULE_NAMESPACE_VALUE.js" "$TRASH_DIRECTORY";
 
-[[ -d "$TRASH_DIRECTORY" ]] &&						\
-[[ -d "$MODULE_ROOT_DIRECTORY_PATH/.build" ]] &&	\
-mv --force "$MODULE_ROOT_DIRECTORY_PATH/.build" "$TRASH_DIRECTORY";
-
-[[ -d "$TRASH_DIRECTORY" ]] &&					\
-[[ -d "$MODULE_ROOT_DIRECTORY_PATH/.test" ]] &&	\
-mv --force "$MODULE_ROOT_DIRECTORY_PATH/.test" "$TRASH_DIRECTORY";
-
 reset-backup( ){
 	local BACKUP_FILE_PATH="$1";
-	local RESTORE_FILE_PATH="$(echo $BACKUP_FILE_PATH | sed s/.bak//g)";
+	local RESTORE_FILE_PATH="$(echo $BACKUP_FILE_PATH | sed s/.backup//g)";
 
 	[[ ! -f "$RESTORE_FILE_PATH" ]] &&	\
 	mv --force "$BACKUP_FILE_PATH" "$RESTORE_FILE_PATH";
@@ -28,7 +22,8 @@ reset-backup( ){
 
 export -f reset-backup;
 
-find *.backup -type f 2>/dev/null | xargs -n1 -I {} bash -c 'reset-backup {}';
+find "*.backup" -type f 2>/dev/null |	\
+xargs -n1 -I {} bash -c 'reset-backup {}';
 
 reset-template( ){
 	local TEMPLATE_FILE_PATH="$1";
@@ -40,6 +35,7 @@ reset-template( ){
 
 export -f reset-template;
 
-find *.template -type f 2>/dev/null | xargs -n1 -I {} bash -c 'reset-template {}';
+find "*.template" -type f 2>/dev/null |	\
+xargs -n1 -I {} bash -c 'reset-template {}';
 
 return 0;

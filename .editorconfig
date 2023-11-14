@@ -11,7 +11,7 @@ trim_trailing_whitespace = true
 end_of_line = crlf
 insert_final_newline = true
 
-max_line_length = 150
+max_line_length = 100
 
 [.npmrc]
 end_of_line = lf
@@ -20,6 +20,12 @@ end_of_line = lf
 end_of_line = lf
 
 [*.list]
+end_of_line = lf
+
+[*.dockerfile]
+end_of_line = lf
+
+[*.configure]
 end_of_line = lf
 
 [*.yaml]
