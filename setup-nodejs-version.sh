@@ -108,6 +108,8 @@ set +vx; eval "$SHELL_STATE";
 #;	@section: setup nodejs version:
 
 USER_HOME="$HOME";
+
+[[ ! -z "$SUDO_USER" ]] &&	\
 [[ "$HOME" == "/root" ]] &&	\
 USER_HOME=$(getent passwd $SUDO_USER | cut -d: -f6);
 
@@ -164,7 +166,7 @@ elif 											\
 		[[ "$LOCAL_SETUP_STATUS" != true ]] &&	\
 		[[ ! -x $(which jq) ]]
 	then
-		source <(curl -sqL "$REPOSITORY_URI_PATH/setup-jq.sh");
+		source <(curl -fLqsS "$REPOSITORY_URI_PATH/setup-jq.sh");
 else
 		jq --version;
 fi
@@ -191,7 +193,7 @@ elif 											\
 	 	[[ "$LOCAL_SETUP_STATUS" != true ]] &&	\
 		[[ ! -x $(which wget) ]]
 	then
-		source <(curl -sqL "$REPOSITORY_URI_PATH/setup-wget.sh");
+		source <(curl -fLqsS "$REPOSITORY_URI_PATH/setup-wget.sh");
 else
 		wget --version;
 fi
@@ -218,7 +220,7 @@ elif 															\
 		[[ "$LOCAL_SETUP_STATUS" != true ]] &&					\
 		[[ ! -x $(which python2) || ! -x $(which python3) ]]
 	then
-		source <(curl -sqL "$REPOSITORY_URI_PATH/setup-python-minimal.sh");
+		source <(curl -fLqsS "$REPOSITORY_URI_PATH/setup-python-minimal.sh");
 else
 		python2 --version;
 		python3 --version;
@@ -298,8 +300,8 @@ npm config set update-notifier false --global 2> /dev/null;
 npm config set fund false --global 2> /dev/null;
 
 #;	@note: update npm;
-[[ -z "$TARGET_NPM_VERSION" ]] && \
-(( $(($(npm --version | grep -o '^[0-9]'))) < 6 )) && \
+[[ -z "$TARGET_NPM_VERSION" ]] &&						\
+(( $(($(npm --version | grep -o '^[0-9]'))) < 6 )) &&	\
 TARGET_NPM_VERSION="6.14.18";
 
 NPM_VERSION="$TARGET_NPM_VERSION";
@@ -309,7 +311,7 @@ NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 [[ $NPM_VERSION == "next" ]] && \
 NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
 
-(( $(($(echo $NPM_VERSION | grep -o '[0-9]'))) < 6 )) && \
+(( $(($(echo "$NPM_VERSION" | grep -o '^[0-9]'))) < 6 )) && \
 NPM_VERSION="next-6";
 
 NPMV=$NPM_VERSION;
