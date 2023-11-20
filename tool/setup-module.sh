@@ -5,17 +5,17 @@ cat "$MODULE_SETUP_LIST_FILE_PATH" | xargs -n1 -I {} bash -c "{}";
 
 [[ ! -z "$MACHINE_GRASS" ]] &&							\
 [[ ! -f "$MODULE_ROOT_DIRECTORY_PATH/setup.lock" ]] &&	\
-echo -e "$MACHINE_GRASS\n" | sudo -S apt-get -qq update;
+echo -e "$MACHINE_GRASS\n" | sudo -S apt-get update;
 
 [[ ! -z "$MACHINE_GRASS" ]] &&							\
 [[ ! -f "$MODULE_ROOT_DIRECTORY_PATH/setup.lock" ]] &&	\
 [[ ! -x $(which jq) ]] &&								\
-echo -e "$MACHINE_GRASS\n" | sudo -S apt-get -qq install jq --yes;
+echo -e "$MACHINE_GRASS\n" | sudo -S apt-get install jq --yes;
 
 [[ ! -z "$MACHINE_GRASS" ]] &&							\
 [[ ! -f "$MODULE_ROOT_DIRECTORY_PATH/setup.lock" ]] &&	\
 [[ ! -x $(which sponge) ]] &&							\
-echo -e "$MACHINE_GRASS\n" | sudo -S apt-get -qq install moreutils --yes;
+echo -e "$MACHINE_GRASS\n" | sudo -S apt-get install moreutils --yes;
 
 [[ ! -f "$MODULE_ROOT_DIRECTORY_PATH/setup.lock" ]] &&	\
 jq 'del(.dependencies)' "$MODULE_PACKAGE_FILE_PATH" |	\
