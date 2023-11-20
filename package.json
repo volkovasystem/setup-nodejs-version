@@ -10,6 +10,7 @@
 		"reset-context-module": "source ./setting/default-tool-setting.sh && source ./tool/reset-context-module.sh",
 		"check-module": "source ./setting/default-tool-setting.sh && source ./tool/check-module.sh",
 		"reset-module": "source ./setting/default-tool-setting.sh && source ./tool/reset-module.sh",
+		"reset-hard-module": "source ./setting/default-tool-setting.sh && export HARD_RESET_STATUS=true && source ./tool/reset-module.sh",
 		"clean-module": "source ./setting/default-tool-setting.sh && source ./tool/clean-module.sh",
 		"setup-module": "source ./setting/default-tool-setting.sh && source ./tool/setup-module.sh",
 		"bundle-module": "source ./setting/default-tool-setting.sh && source ./tool/bundle-module.sh",

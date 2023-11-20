@@ -1,6 +1,6 @@
 "use strict";
 
-const BUNDLE_CONFIGURE = (
+const BUNDLE_WEBPACK_SETTING = (
 	{
 		"entry": (
 			[
@@ -10,6 +10,11 @@ const BUNDLE_CONFIGURE = (
 
 		"mode": (
 			"production"
+		),
+
+		"target": (
+			`${ process.env.MODULE_BUILD_TARGET_LIST }`
+			.split( /\s*\,\s*/g )
 		),
 
 		"output": (
@@ -56,6 +61,6 @@ const BUNDLE_CONFIGURE = (
 		module
 		.exports
 	=	(
-			BUNDLE_CONFIGURE
+			BUNDLE_WEBPACK_SETTING
 		)
 );

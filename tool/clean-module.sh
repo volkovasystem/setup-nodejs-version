@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 
-[[ -d "$TRASH_DIRECTORY" ]] &&						\
-[[ -d "$MODULE_ROOT_DIRECTORY_PATH/.build" ]] &&	\
-mv --force "$MODULE_ROOT_DIRECTORY_PATH/.build" "$TRASH_DIRECTORY";
+[[ -d "$TRASH_DIRECTORY" ]] &&				\
+[[ -d "$MODULE_BUILD_DIRECTORY_PATH" ]] &&	\
+mv --force "$MODULE_BUILD_DIRECTORY_PATH" "$TRASH_DIRECTORY";
+
+[[ -d "$TRASH_DIRECTORY" ]] &&				\
+[[ -d "$MODULE_TEST_DIRECTORY_PATH" ]] &&	\
+mv --force "$MODULE_TEST_DIRECTORY_PATH" "$TRASH_DIRECTORY";
 
 [[ -d "$TRASH_DIRECTORY" ]] &&					\
-[[ -d "$MODULE_ROOT_DIRECTORY_PATH/.test" ]] &&	\
-mv --force "$MODULE_ROOT_DIRECTORY_PATH/.test" "$TRASH_DIRECTORY";
+[[ -d "$MODULE_PACKAGE_DIRECTORY_PATH" ]] &&	\
+mv --force "$MODULE_PACKAGE_DIRECTORY_PATH" "$TRASH_DIRECTORY";
 
-[[ -d "$TRASH_DIRECTORY" ]] &&							\
-[[ -d "$MODULE_ROOT_DIRECTORY_PATH/node_modules" ]] &&	\
-mv --force "$MODULE_ROOT_DIRECTORY_PATH/node_modules" "$TRASH_DIRECTORY";
-
-[[ -d "$TRASH_DIRECTORY" ]] &&								\
-[[ -f "$MODULE_ROOT_DIRECTORY_PATH/package-lock.json" ]] &&	\
-mv --force "$MODULE_ROOT_DIRECTORY_PATH/package-lock.json" "$TRASH_DIRECTORY";
+[[ -d "$TRASH_DIRECTORY" ]] &&					\
+[[ -f "$MODULE_PACKAGE_LOCK_FILE_PATH" ]] &&	\
+mv --force "$MODULE_PACKAGE_LOCK_FILE_PATH" "$TRASH_DIRECTORY";
 
 npm cache clean --force --loglevel=error;
 

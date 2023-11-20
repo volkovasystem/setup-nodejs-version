@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-[[ ! -d "$MODULE_ROOT_DIRECTORY_PATH/.build" ]] &&	\
-mkdir -p "$MODULE_ROOT_DIRECTORY_PATH/.build";
+[[ ! -d "$MODULE_BUILD_DIRECTORY_PATH" ]] &&	\
+mkdir -p "$MODULE_BUILD_DIRECTORY_PATH";
 
 npm run bundle-module &&	\
 npm run compress-module &&	\

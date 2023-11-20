@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-npm run reset-module;
+npm run reset-hard-module;
 
 [[ -f "$MODULE_ROOT_DIRECTORY_PATH/tool/transform-context-module.sh" ]] &&	\
 npm run transform-context-module;

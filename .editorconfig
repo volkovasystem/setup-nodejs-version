@@ -28,6 +28,9 @@ end_of_line = lf
 [*.configure]
 end_of_line = lf
 
+[*.env]
+end_of_line = lf
+
 [*.yaml]
 indent_style = space
 indent_size = 4
