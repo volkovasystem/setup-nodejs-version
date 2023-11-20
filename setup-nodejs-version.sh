@@ -49,8 +49,11 @@ SHORT_PARAMETER_LIST=(	\
 LONG_PARAMETER_LIST=(	\
 	help:,				\
 	version:,			\
+	targetVersion:,		\
 	npm:,				\
-	local:				\
+	targetNPMVersion:,	\
+	local:,				\
+	localSetupStatus:	\
 );
 
 SHORT_PARAMETER_LIST=$(echo $(IFS='';echo "${SHORT_PARAMETER_LIST[*]// /}";IFS=$' \t\n'));
@@ -81,15 +84,15 @@ do
 			HELP_PROMPT_STATUS=true;
 			shift 2
 			;;
-		-v | --version )
+		-v | --version | --targetVersion )
 			TARGET_VERSION=$2;
 			shift 2
 			;;
-		-n | --npm )
+		-n | --npm | --targetNPMVersion )
 			TARGET_NPM_VERSION=$2;
 			shift 2
 			;;
-		-l | --local )
+		-l | --local | --localSetupStatus )
 			LOCAL_SETUP_STATUS=true;
 			shift 2
 			;;
