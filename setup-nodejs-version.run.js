@@ -170,12 +170,12 @@
 
 				const contextNamespace = (
 						(
-							option
+							parameter
 							.context
 						)
 					||
 						(
-							option
+							parameter
 							.contextNamespace
 						)
 					||
@@ -186,12 +186,12 @@
 
 				const directoryPath = (
 						(
-							option
+							parameter
 							.directory
 						)
 					||
 						(
-							option
+							parameter
 							.directoryPath
 						)
 					||
