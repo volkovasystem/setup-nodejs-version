@@ -55,6 +55,6 @@
 	},
 	"homepage": "https://github.com/volkovasystem/setup-nodejs-version#readme",
 	"dependencies": {
-		"@volkovasystem/parse-shell-parameter": "0.0.2"
+		"parse-shell-parameter": "npm:@volkovasystem/parse-shell-parameter@0.0.2"
 	}
 }
