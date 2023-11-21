@@ -14,10 +14,10 @@ set-template( ){
 
 export -f set-template;
 
-find *.module.* -type f ! \( -name *.template \) 2>/dev/null |	\
+find *.module.* -type f ! \( -name '*.template' \) 2>/dev/null |	\
 xargs -n1 -I {} bash -c 'set-template {}';
 
-find *.run.* -type f ! \( -name *.template \) 2>/dev/null |	\
+find *.run.* -type f ! \( -name '*.template' \) 2>/dev/null |	\
 xargs -n1 -I {} bash -c 'set-template {}';
 
 return 0;
