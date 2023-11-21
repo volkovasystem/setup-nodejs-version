@@ -79,27 +79,54 @@ const setupNodeJSVersion = (
 							JSON
 							.parse(
 								(
-									/*;
-										@todo:
-											Wrap this inside try-catch block
-											with proper error handling.
-										@todo;
-									*/
-									await	fsAsync
-											.readFile(
-												(
-													path
-													.resolve(
-														(
-															MODULE_ROOT_DIRECTORY_PATH
-														),
+									await	(
+												async	function( ){
+															try{
+																return	(
+																			await	fsAsync
+																					.readFile(
+																						(
+																							path
+																							.resolve(
+																								(
+																									MODULE_ROOT_DIRECTORY_PATH
+																								),
 
-														(
-															"package.json"
-														)
-													)
-												)
-											)
+																								(
+																									"package.json"
+																								)
+																							)
+																						)
+																					)
+																		);
+															}
+															catch( error ){
+																console.error(
+																	(
+																		[
+																			"#cannot-run-setup-nodejs-version;",
+
+																			"cannot run setup nodejs version;",
+																			"cannot read package file;",
+
+																			"@module-root-directory-path:",
+																			MODULE_ROOT_DIRECTORY_PATH,
+
+																			"@option-data:",
+																			option,
+
+																			"@error-data:",
+																			error,
+																		]
+																	)
+																);
+
+																return	(
+																			undefined
+																		);
+															}
+														}
+											)( )
 								)
 							)
 							?.alias
@@ -155,6 +182,10 @@ const setupNodeJSVersion = (
 				const SETUP_COMMAND = (
 					(
 						[
+							(
+								"source"
+							),
+
 							(
 								SETUP_NODEJS_VERSION_SCRIPT_PATH
 							),
@@ -217,7 +248,15 @@ const setupNodeJSVersion = (
 						await	execAsync(
 									(
 										`bash -c ${ SETUP_COMMAND }`
-									)
+									),
+
+									(
+										{
+											"stdio": (
+												"inherit"
+											),
+										}
+									),
 								)
 					);
 				}

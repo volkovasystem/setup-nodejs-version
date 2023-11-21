@@ -37,21 +37,54 @@
 							JSON
 							.parse(
 								(
-									await	fsAsync
-											.readFile(
-												(
-													path
-													.resolve(
-														(
-															MODULE_ROOT_DIRECTORY_PATH
-														),
+									await	(
+												async	function( ){
+															try{
+																return	(
+																			await	fsAsync
+																					.readFile(
+																						(
+																							path
+																							.resolve(
+																								(
+																									MODULE_ROOT_DIRECTORY_PATH
+																								),
 
-														(
-															"package.json"
-														)
-													)
-												)
-											)
+																								(
+																									"package.json"
+																								)
+																							)
+																						)
+																					)
+																		);
+															}
+															catch( error ){
+																console.error(
+																	(
+																		[
+																			"#cannot-run-module;",
+
+																			"cannot run module;",
+																			"cannot read package file;",
+
+																			"@module-root-directory-path:",
+																			MODULE_ROOT_DIRECTORY_PATH,
+
+																			"@parameter-data:",
+																			parameter,
+
+																			"@error-data:",
+																			error,
+																		]
+																	)
+																);
+
+																return	(
+																			undefined
+																		);
+															}
+														}
+											)( )
 								)
 							)
 							?.alias
