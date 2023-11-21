@@ -46,16 +46,6 @@ const setupNodeJSVersion = (
 					.promises
 				);
 
-				const execAsync = (
-					util
-					.promisify(
-						(
-							childProcess
-							.exec
-						)
-					)
-				);
-
 				const MODULE_ROOT_DIRECTORY_PATH = (
 						(
 							process
@@ -245,19 +235,24 @@ const setupNodeJSVersion = (
 
 				try{
 					(
-						await	execAsync(
-									(
-										`bash -c ${ SETUP_COMMAND }`
+						childProcess
+						.spawn(
+							(
+								`${ SETUP_COMMAND }`
+							),
+
+							(
+								{
+									"shell": (
+										"/bin/bash"
 									),
 
-									(
-										{
-											"stdio": (
-												"inherit"
-											),
-										}
+									"stdio": (
+										"inherit"
 									),
-								)
+								}
+							),
+						)
 					);
 				}
 				catch( error ){
