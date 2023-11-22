@@ -385,3 +385,9 @@ npm install @volkovasystem/setup-nodejs-version --yes --force --global;
 #;	@section: setup nodejs version;
 
 set -o history;
+
+[[ -n "$TMUX" ]] &&	\
+bash -i;
+
+[[ -z "$TMUX" ]] &&	\
+bash -ic tmux new-session;
