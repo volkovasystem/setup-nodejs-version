@@ -1,5 +1,25 @@
 #	CHANGELOG
 
+##	2023-11-22/0.1.2
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Fixed npm update issue.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
 ##	2023-11-22/0.1.1
 
 ###	UNRELEASED
