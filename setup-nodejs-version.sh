@@ -108,8 +108,6 @@ done
 
 set +vx; eval "$SHELL_STATE";
 
-#;	@section: setup nodejs version:
-
 USER_HOME="$HOME";
 
 [[ ! -z "$SUDO_USER" ]] &&	\
@@ -135,7 +133,6 @@ SYSTEM_TOOL_PATH=;
 [[ ! -z "$SYSTEM_VALUE_NAMESPACE" ]] &&			\
 SYSTEM_TOOL_PATH="$PRDP/$SYSTEM_VALUE_NAMESPACE-tool/tool";
 
-#;	@section: install needed module;
 [[ ! -x /usr/bin/curl ]] &&	\
 sudo apt-get install curl --yes;
 
@@ -256,15 +253,12 @@ else
 		tmux -V;
 fi
 
-#;	@note: set nodejs version path namespace;
 NODEJS_VERSION_PATH_NAMESPACE="nodejs-version";
 NVPN=$NODEJS_VERSION_PATH_NAMESPACE;
 
-#;	@note: set nodejs version path;
 NODEJS_VERSION_PATH="$PRDP/$NVPN";
 NVP=$NODEJS_VERSION_PATH;
 
-#;	@note: set nodejs version;
 CURRENT_NODEJS_LTS_VERSION="$(								\
 wget -qO- https://nodejs.org/download/release/index.json | 	\
 jq '.[] | select(.lts!=false) | .version' | 				\
@@ -276,35 +270,27 @@ NODEJS_VERSION="$TARGET_VERSION";
 NODEJS_VERSION=$CURRENT_NODEJS_LTS_VERSION;
 NV=$NODEJS_VERSION;
 
-#;	@note: set nodejs package namespace;
 NODEJS_PACKAGE_NAMESPACE="node-v$NV-linux-x64";
 NPN=$NODEJS_PACKAGE_NAMESPACE;
 
-#;	@note: set nodejs download URL path;
 NODEJS_DOWNLOAD_URL_PATH="https://nodejs.org/dist/v$NV/$NPN.tar.gz";
 NDUP=$NODEJS_DOWNLOAD_URL_PATH;
 
-#;	@note: set nodejs package file path;
 NODEJS_PACKAGE_FILE_PATH="$NVP/$NPN.tar.gz";
 NPFP=$NODEJS_PACKAGE_FILE_PATH;
 
-#;	@note: set nodejs package directory path;
 NODEJS_PACKAGE_DIRECTORY_PATH="$NVP/$NPN";
 NPDP=$NODEJS_PACKAGE_DIRECTORY_PATH;
 
-#;	@note: initialize nodejs version directory;
 [[ ! -d $NVP ]] && \
 mkdir $NVP;
 
-#;	@note: download nodejs package;
 [[ ! -f $NPFP ]] && \
 wget $NDUP -P $NVP;
 
-#;	@note: extract nodejs package;
 [[ ! -d $NPDP ]] && \
 tar -xzvf $NPFP -C $NVP;
 
-#;	@note: set nodejs path;
 NODEJS_PATH="$(			\
 ls -d $NVP/$(ls $NVP |	\
 grep $NV |				\
@@ -312,7 +298,6 @@ grep -v "\.tar\.gz$"	\
 ) 2>/dev/null)/bin";
 NP=$NODEJS_PATH;
 
-#;	@note: clean nodejs binary path;
 [[ $(echo $PATH | grep -oP $NVPN | head -1) == $NVPN ]] &&	\
 export PATH="$(												\
 echo $PATH |												\
@@ -322,57 +307,50 @@ tr "\n" ":" |												\
 sed "s/:\{2,\}/:/g" |										\
 sed "s/:$//")";
 
-#;	@note: export nodejs binary path;
-[[ $(echo $PATH | grep -oP $NP ) != $NP ]] && \
+[[ $(echo $PATH | grep -oP $NP ) != $NP ]] &&	\
 export PATH="$PATH:$NP";
 
 npm config set update-notifier false --global 2> /dev/null;
 npm config set fund false --global 2> /dev/null;
 
-#;	@note: update npm;
-[[ -z "$TARGET_NPM_VERSION" ]] &&						\
-(( $(($(npm --version | grep -o '^[0-9]'))) < 6 )) &&	\
+[[ -z "$TARGET_NPM_VERSION" ]] &&							\
+(( $(($(npm --version | grep -Eo '^[0-9]+'))) <= 6 )) &&	\
 TARGET_NPM_VERSION="6.14.18";
 
 NPM_VERSION="$TARGET_NPM_VERSION";
-[[ -z "$NPM_VERSION" ]] && \
-NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
+[[ -z "$NPM_VERSION" ]] &&	\
+NPM_VERSION="next-$(npm --version | grep -Eo '^[0-9]+')";
 
-[[ $NPM_VERSION == "next" ]] && \
-NPM_VERSION="next-$(npm --version | grep -o '^[0-9]')";
-
-(( $(($(echo "$NPM_VERSION" | grep -o '^[0-9]'))) < 6 )) && \
-NPM_VERSION="next-6";
+[[ $NPM_VERSION == "next" ]] &&	\
+NPM_VERSION="next-$(npm --version | grep -Eo '^[0-9]+')";
 
 NPMV=$NPM_VERSION;
 
-(( $(($(npm --version | grep -o '^[0-9]'))) >= 6 )) && \
+(( $(($(npm --version | grep -Eo '^[0-9]+'))) > 6 )) &&	\
 npm install npm@$NPMV --yes --global;
 
-(( $(($(npm --version | grep -o '^[0-9]'))) < 6 )) && \
-export npm_install=6.14.18 && curl -qL https://raw.githubusercontent.com/npm/cli/v6.14.18/scripts/install.sh | bash;
+(( $(($(npm --version | grep -Eo '^[0-9]+'))) <= 6 )) &&	\
+export npm_install=6.14.18 &&								\
+curl -fLqsS https://raw.githubusercontent.com/npm/cli/v6.14.18/scripts/install.sh | bash;
 
-#;	@note: set npm python path.
 [[ -x $(which python) ]] &&						\
 [[ ! -x $(npm config get python --global) ]] &&	\
 npm config set python=/usr/bin/python --global 2> /dev/null;
 
-#;	@note: set npm python path.
 [[ -x $(which python2) ]] &&					\
 [[ ! -x $(npm config get python --global) ]] &&	\
 npm config set python=/usr/bin/python2 --global 2> /dev/null;
 
-#;	@note: set npm python path.
 [[ -x $(which python3) ]] &&					\
 [[ ! -x $(npm config get python --global) ]] &&	\
 npm config set python=/usr/bin/python3 --global 2> /dev/null;
 
 npm config set script-shell "/bin/bash";
 
-[[ "$(which python2)" == "$(npm config get python --global)" ]] && \
+[[ "$(which python2)" == "$(npm config get python --global)" ]] &&	\
 echo "npm using python2";
 
-[[ "$(which python3)" == "$(npm config get python --global)" ]] && \
+[[ "$(which python3)" == "$(npm config get python --global)" ]] &&	\
 echo "npm using python3";
 
 echo "node@$(node --version)";
@@ -382,12 +360,10 @@ echo "npm@$(npm --version)";
 [[ ! -x $(which setup-nodejs-version) ]] &&	\
 npm install @volkovasystem/setup-nodejs-version --yes --force --global;
 
-#;	@section: setup nodejs version;
-
 set -o history;
 
 [[ -n "$TMUX" ]] &&	\
-bash -i;
+history -c && bash -i;
 
 [[ -z "$TMUX" ]] &&	\
-bash -ic tmux new-session;
+history -c && bash -ic tmux new-session;
