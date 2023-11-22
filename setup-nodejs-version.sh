@@ -229,6 +229,33 @@ else
 		python3 --version;
 fi
 
+if 												\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+		[[ -f "setup-tmux.sh" ]] &&				\
+		[[ ! -x $(which tmux) ]]
+	then
+		source setup-tmux.sh;
+elif 											\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+		[[ ! -f "setup-tmux.sh"	]] &&			\
+		[[ -x $(which setup-tmux) ]] &&			\
+		[[ ! -x $(which tmux) ]]
+	then
+		source setup-tmux;
+elif 											\
+		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+		[[ ! -x $(which tmux) ]]
+	then
+		source "$REPOSITORY_URI_PATH/setup-tmux.sh";
+elif 											\
+	 	[[ "$LOCAL_SETUP_STATUS" != true ]] &&	\
+		[[ ! -x $(which tmux) ]]
+	then
+		source <(curl -fLqsS "$REPOSITORY_URI_PATH/setup-tmux.sh");
+else
+		tmux -V;
+fi
+
 #;	@note: set nodejs version path namespace;
 NODEJS_VERSION_PATH_NAMESPACE="nodejs-version";
 NVPN=$NODEJS_VERSION_PATH_NAMESPACE;

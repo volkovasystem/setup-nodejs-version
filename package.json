@@ -29,6 +29,7 @@
 		"setup-jq": "setup-jq.sh",
 		"setup-wget": "setup-wget.sh",
 		"setup-python-minimal": "setup-python-minimal.sh",
+		"setup-tmux": "setup-tmux.sh",
 		"setup-nodejs-version": "setup-nodejs-version.sh"
 	},
 	"os": [
