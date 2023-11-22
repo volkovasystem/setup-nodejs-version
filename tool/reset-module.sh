@@ -2,7 +2,7 @@
 
 npm run clean-module;
 
-npx --yes --ignore-existing @volkovasystem/format-package-json-file;
+npx --yes @volkovasystem/format-package-json-file;
 
 [[ $HARD_RESET_STATUS = true ]] &&						\
 [[ -f "$MODULE_ROOT_DIRECTORY_PATH/setup.lock" ]] &&	\

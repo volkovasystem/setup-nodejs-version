@@ -43,7 +43,7 @@ export -f install-dependency;
 [[ -f "$MODULE_DEPENDENCY_LIST_FILE_PATH" ]] &&	\
 cat "$MODULE_DEPENDENCY_LIST_FILE_PATH" | xargs -n1 -I {} bash -c "install-dependency {}";
 
-npx --yes --ignore-existing @volkovasystem/format-package-json-file;
+npx --yes @volkovasystem/format-package-json-file;
 
 [[ -f "$MODULE_ROOT_DIRECTORY_PATH/setup.lock" ]] &&	\
 [[ -f "$MODULE_PACKAGE_FILE_PATH.backup" ]] &&			\
