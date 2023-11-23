@@ -362,8 +362,10 @@ npm install @volkovasystem/setup-nodejs-version --yes --force --global;
 
 set -o history;
 
-[[ -n "$TMUX" ]] &&	\
+[[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\
+[[ -n "$TMUX" ]] &&								\
 history -c && bash -i;
 
-[[ -z "$TMUX" ]] &&	\
+[[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\
+[[ -z "$TMUX" ]] &&								\
 history -c && bash -ic tmux new-session;
