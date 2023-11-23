@@ -369,3 +369,5 @@ history -c && bash -i;
 [[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\
 [[ -z "$TMUX" ]] &&								\
 history -c && bash -ic tmux new-session;
+
+return 0;
