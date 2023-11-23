@@ -1,5 +1,28 @@
 #	CHANGELOG
 
+##	2023-11-23/0.1.3
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- Added support for configure git during build.
+- Added support for container context status.
+
+###	MODIFIED
+- undefined
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2023-11-22/0.1.2
 
 ###	UNRELEASED
@@ -19,6 +42,8 @@
 
 ###	SECURITY
 - undefined
+
+---
 
 ##	2023-11-22/0.1.1
 
