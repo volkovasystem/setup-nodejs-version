@@ -1,5 +1,27 @@
 #	CHANGELOG
 
+##	2023-11-23/0.1.4
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- Fixed issue on return value.
+
+###	MODIFIED
+- undefined
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2023-11-23/0.1.3
 
 ###	UNRELEASED
