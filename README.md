@@ -2,7 +2,6 @@
 
 ##	Setup NodeJS Version
 
-
 ### Parameter
 * `-v | --version | --targetVersion`
 * `-n | --npm | --targetNPMVersion`
@@ -38,3 +37,7 @@ npm install @volkovasystem/setup-nodejs-version --global
 ```bash
 setup-nodejs-version --targetVersion 18.18.2
 ```
+
+###	Supported OS Platform
+
+* Ubuntu 20.04.x LTS
