@@ -1,5 +1,28 @@
 #	CHANGELOG
 
+##	2023-11-26/0.1.5
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- Added restriction to check module on private module.
+- Added description for supported os platform.
+
+###	MODIFIED
+- undefined
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2023-11-23/0.1.4
 
 ###	UNRELEASED
