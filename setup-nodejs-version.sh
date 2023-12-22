@@ -308,4 +308,5 @@ history -c && bash -i;
 [[ -z "$TMUX" ]] &&								\
 history -c && bash -ic tmux new-session;
 
+[[ "${BASH_SOURCE[0]}" != "${0}" ]] &&	\
 return 0;
