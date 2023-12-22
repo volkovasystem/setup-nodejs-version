@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 [[ -f "$MODULE_SETUP_LIST_FILE_PATH" ]] &&	\
-cat "$MODULE_SETUP_LIST_FILE_PATH" | xargs -n1 -I {} bash -c "{}";
+cat "$MODULE_SETUP_LIST_FILE_PATH" | xargs -I {} bash -c "{}";
 
 [[ ! -z "$MACHINE_GRASS" ]] &&							\
 [[ ! -f "$MODULE_ROOT_DIRECTORY_PATH/setup.lock" ]] &&	\
@@ -41,7 +41,7 @@ install-dependency( ){
 export -f install-dependency;
 
 [[ -f "$MODULE_DEPENDENCY_LIST_FILE_PATH" ]] &&	\
-cat "$MODULE_DEPENDENCY_LIST_FILE_PATH" | xargs -n1 -I {} bash -c "install-dependency {}";
+cat "$MODULE_DEPENDENCY_LIST_FILE_PATH" | xargs -I {} bash -c "install-dependency {}";
 
 npx --yes @volkovasystem/format-package-json-file;
 

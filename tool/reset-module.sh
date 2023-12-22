@@ -31,7 +31,7 @@ reset-backup( ){
 export -f reset-backup;
 
 find *.backup -type f 2>/dev/null |	\
-xargs -n1 -I {} bash -c 'reset-backup {}';
+xargs -I {} bash -c 'reset-backup {}';
 
 reset-template( ){
 	local TEMPLATE_FILE_PATH="$1";
@@ -44,6 +44,6 @@ reset-template( ){
 export -f reset-template;
 
 find *.template -type f 2>/dev/null |	\
-xargs -n1 -I {} bash -c 'reset-template {}';
+xargs -I {} bash -c 'reset-template {}';
 
 return 0;
