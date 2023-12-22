@@ -1,5 +1,27 @@
 #	CHANGELOG
 
+##	2023-12-22/0.2.2
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Fixed issue with global executable link.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2023-12-22/0.2.1
 
 ###	UNRELEASED
