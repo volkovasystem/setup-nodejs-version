@@ -26,10 +26,6 @@
 		"setup-nodejs-version": "source ./setting/default-tool-setting.sh && node ./setup-nodejs-version.run.js"
 	},
 	"bin": {
-		"setup-jq": "setup-jq.sh",
-		"setup-wget": "setup-wget.sh",
-		"setup-python-minimal": "setup-python-minimal.sh",
-		"setup-tmux": "setup-tmux.sh",
 		"setup-nodejs-version": "setup-nodejs-version.sh"
 	},
 	"os": [

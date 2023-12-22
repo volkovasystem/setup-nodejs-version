@@ -138,125 +138,38 @@ MODULE_ROOT_DIRECTORY_PATH="$PLATFORM_ROOT_DIRECTORY_PATH/$MODULE_NAMESPACE_VALU
 [[ -d "$MODULE_ROOT_DIRECTORY_PATH/tool" ]] &&	\
 MODULE_TOOL_DIRECTORY_PATH="$MODULE_ROOT_DIRECTORY_PATH/tool";
 
-[[ ! -x /usr/bin/curl ]] &&	\
+[[ ! -x $(which curl) ]] &&	\
 sudo apt-get install curl --yes;
 
-[[ -x /usr/bin/curl ]] &&	\
+[[ -x $(which curl) ]] &&	\
 curl --version;
 
-REPOSITORY_URI_PATH="https://raw.githubusercontent.com/volkovasystem/setup-nodejs-version/main";
+[[ ! -x $(which jq) ]] &&	\
+sudo apt-get install jq --yes;
 
-[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-REPOSITORY_URI_PATH=$MODULE_TOOL_DIRECTORY_PATH;
+[[ -x $(which jq) ]] &&	\
+jq --version;
 
-if 												\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-		[[ -f "setup-jq.sh" ]] &&				\
-		[[ ! -x $(which jq) ]]
-	then
-		source setup-jq.sh;
-elif 											\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-		[[ ! -f "setup-jq.sh" ]] &&				\
-		[[ -x $(which setup-jq)	]] &&			\
-		[[ ! -x $(which jq)	]]
-	then
-		source setup-jq;
-elif 											\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-		[[ ! -x $(which jq) ]]
-	then
-		source "$REPOSITORY_URI_PATH/setup-jq.sh";
-elif 											\
-		[[ "$LOCAL_SETUP_STATUS" != true ]] &&	\
-		[[ ! -x $(which jq) ]]
-	then
-		source <(curl -fLqsS "$REPOSITORY_URI_PATH/setup-jq.sh");
-else
-		jq --version;
-fi
+[[ ! -x $(which tmux) ]] &&	\
+sudo apt-get install tmux --yes;
 
-if 												\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-		[[ -f "setup-wget.sh" ]] &&				\
-		[[ ! -x $(which wget) ]]
-	then
-		source setup-wget.sh;
-elif 											\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-		[[ ! -f "setup-wget.sh"	]] &&			\
-		[[ -x $(which setup-wget) ]] &&			\
-		[[ ! -x $(which wget) ]]
-	then
-		source setup-wget;
-elif 											\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-		[[ ! -x $(which wget) ]]
-	then
-		source "$REPOSITORY_URI_PATH/setup-wget.sh";
-elif 											\
-	 	[[ "$LOCAL_SETUP_STATUS" != true ]] &&	\
-		[[ ! -x $(which wget) ]]
-	then
-		source <(curl -fLqsS "$REPOSITORY_URI_PATH/setup-wget.sh");
-else
-		wget --version;
-fi
+[[ -x $(which tmux) ]] &&	\
+tmux -V;
 
-if 																\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&					\
-		[[ -f "setup-python-minimal.sh" ]] &&					\
-		[[ ! -x $(which python2) ||	! -x $(which python3) ]]
-	then
-		source setup-python-minimal.sh;
-elif 															\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&					\
-		[[ ! -f "setup-python-minimal.sh" ]] && 				\
-		[[ -x $(which setup-python-minimal) ]] &&				\
-		[[ ! -x $(which python2) || ! -x $(which python3) ]]
-	then
-		source setup-python-minimal;
-elif 															\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&					\
-		[[ ! -x $(which python2) || ! -x $(which python3) ]]
-	then
-		source "$REPOSITORY_URI_PATH/setup-python-minimal.sh";
-elif 															\
-		[[ "$LOCAL_SETUP_STATUS" != true ]] &&					\
-		[[ ! -x $(which python2) || ! -x $(which python3) ]]
-	then
-		source <(curl -fLqsS "$REPOSITORY_URI_PATH/setup-python-minimal.sh");
-else
-		python2 --version;
-		python3 --version;
-fi
+[[ ! -x $(which wget) ]] &&	\
+sudo apt-get install wget --yes;
 
-if 												\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-		[[ -f "setup-tmux.sh" ]] &&				\
-		[[ ! -x $(which tmux) ]]
-	then
-		source setup-tmux.sh;
-elif 											\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-		[[ ! -f "setup-tmux.sh"	]] &&			\
-		[[ -x $(which setup-tmux) ]] &&			\
-		[[ ! -x $(which tmux) ]]
-	then
-		source setup-tmux;
-elif 											\
-		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-		[[ ! -x $(which tmux) ]]
-	then
-		source "$REPOSITORY_URI_PATH/setup-tmux.sh";
-elif 											\
-	 	[[ "$LOCAL_SETUP_STATUS" != true ]] &&	\
-		[[ ! -x $(which tmux) ]]
-	then
-		source <(curl -fLqsS "$REPOSITORY_URI_PATH/setup-tmux.sh");
-else
-		tmux -V;
-fi
+[[ -x $(which wget) ]] &&	\
+wget --version;
+
+[[ ! -x $(which python2) || ! -x $(which python3) ]] &&	\
+sudo apt-get install python*-minimal --yes;
+
+[[ -x $(which python2) ]] &&	\
+python2 --version;
+
+[[ -x $(which python3) ]] &&	\
+python3 --version;
 
 NODEJS_VERSION_PATH_NAMESPACE="nodejs-version";
 NVPN=$NODEJS_VERSION_PATH_NAMESPACE;
