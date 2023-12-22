@@ -381,6 +381,10 @@ sudo ln -s $(which npx) /usr/local/bin/npx;
 [[ -x $(which corepack) ]] &&			\
 sudo ln -s $(which corepack) /usr/local/bin/corepack;
 
+[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+[[ -x $(which setup-nodejs-version) ]] &&				\
+sudo ln -s $(which setup-nodejs-version) /usr/local/bin/setup-nodejs-version;
+
 set -o history;
 
 [[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\
