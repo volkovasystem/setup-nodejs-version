@@ -40,20 +40,20 @@ SHELL_STATE="$(set +o)";
 #; @todo-note: Modify to add fallback and handler for optional and required parameter.;
 
 SHORT_PARAMETER_LIST=(	\
-	h:					\
 	v:					\
 	n:					\
 	l:					\
+	h:					\
 );
 
 LONG_PARAMETER_LIST=(	\
-	help:,				\
-	version:,			\
 	targetVersion:,		\
-	npm:,				\
+	version:,			\
 	targetNPMVersion:,	\
+	npm:,				\
+	localSetupStatus:,	\
 	local:,				\
-	localSetupStatus:	\
+	help:				\
 );
 
 SHORT_PARAMETER_LIST=$(echo $(IFS='';echo "${SHORT_PARAMETER_LIST[*]// /}";IFS=$' \t\n'));
@@ -71,9 +71,9 @@ getopt								\
 [[ $? > 0 ]] &&	\
 exit 1;
 
-TARGET_VERSION=;
-TARGET_NPM_VERSION=;
-LOCAL_SETUP_STATUS=;
+TARGET_VERSION="";
+TARGET_NPM_VERSION="";
+LOCAL_SETUP_STATUS=false;
 
 eval set -- "$PARAMETER";
 
