@@ -108,30 +108,35 @@ done
 
 set +vx; eval "$SHELL_STATE";
 
-USER_HOME="$HOME";
+ACTOR_HOME_PATH="$HOME";
+[[ "$HOME" == "/root" ]] &&									\
+[[ "$EUID" == 0 ]] &&										\
+[[ -d $(getent passwd $SUDO_USER | cut -d ':' -f 6) ]] &&	\
+ACTOR_HOME_PATH=$(getent passwd $SUDO_USER | cut -d ':' -f 6);
 
-[[ ! -z "$SUDO_USER" ]] &&	\
-[[ "$HOME" == "/root" ]] &&	\
-USER_HOME=$(getent passwd $SUDO_USER | cut -d: -f6);
+[[ "$HOME" == "/root" ]] &&									\
+[[ "$EUID" == 0 ]] &&										\
+[[ ! -d $(getent passwd $SUDO_USER | cut -d ':' -f 6) ]] &&	\
+ACTOR_HOME_PATH=$HOME;
 
+[[ "${PLATFORM_PARENT_DIRECTORY_PATH@a}" == *x* ]] &&	\
+[[ ! -z "$PLATFORM_PARENT_DIRECTORY_PATH" ]] &&			\
 [[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&				\
-[[ "$PLATFORM_ROOT_DIRECTORY_PATH" == "$PRDP" ]] &&		\
-[[ "${PLATFORM_PARENT_DIRECTORY@a}" == *x* ]] &&		\
-[[ ! -z "$PLATFORM_PARENT_DIRECTORY" ]] &&				\
-PLATFORM_ROOT_DIRECTORY_PATH="$USER_HOME/$PLATFORM_PARENT_DIRECTORY";
+PLATFORM_ROOT_DIRECTORY_PATH="$ACTOR_HOME_PATH/$PLATFORM_PARENT_DIRECTORY_PATH";
 
-[[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&				\
-[[ "$PLATFORM_ROOT_DIRECTORY_PATH" == "$PRDP" ]] &&		\
-[[ -z "$PLATFORM_PARENT_DIRECTORY" ]] &&				\
-PLATFORM_ROOT_DIRECTORY_PATH="$USER_HOME";
+[[ -z "$PLATFORM_PARENT_DIRECTORY_PATH" ]] &&	\
+[[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&		\
+PLATFORM_ROOT_DIRECTORY_PATH="$ACTOR_HOME_PATH";
 
-PRDP="$PLATFORM_ROOT_DIRECTORY_PATH";
+[[ "${MODULE_NAMESPACE_VALUE@a}" == *x* ]] &&						\
+[[ ! -z "$MODULE_NAMESPACE_VALUE" ]] &&								\
+[[ -z "$MODULE_ROOT_DIRECTORY_PATH" ]] &&							\
+[[ -d "$PLATFORM_ROOT_DIRECTORY_PATH/$MODULE_NAMESPACE_VALUE" ]] &&	\
+MODULE_ROOT_DIRECTORY_PATH="$PLATFORM_ROOT_DIRECTORY_PATH/$MODULE_NAMESPACE_VALUE";
 
-SYSTEM_TOOL_PATH=;
-
-[[ "${SYSTEM_VALUE_NAMESPACE@a}" == *x* ]] &&	\
-[[ ! -z "$SYSTEM_VALUE_NAMESPACE" ]] &&			\
-SYSTEM_TOOL_PATH="$PRDP/$SYSTEM_VALUE_NAMESPACE-tool/tool";
+[[ -z "$MODULE_TOOL_DIRECTORY_PATH" ]] &&		\
+[[ -d "$MODULE_ROOT_DIRECTORY_PATH/tool" ]] &&	\
+MODULE_TOOL_DIRECTORY_PATH="$MODULE_ROOT_DIRECTORY_PATH/tool";
 
 [[ ! -x /usr/bin/curl ]] &&	\
 sudo apt-get install curl --yes;
@@ -142,7 +147,7 @@ curl --version;
 REPOSITORY_URI_PATH="https://raw.githubusercontent.com/volkovasystem/setup-nodejs-version/main";
 
 [[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-REPOSITORY_URI_PATH=$SYSTEM_TOOL_PATH;
+REPOSITORY_URI_PATH=$MODULE_TOOL_DIRECTORY_PATH;
 
 if 												\
 		[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
