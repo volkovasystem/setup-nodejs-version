@@ -365,6 +365,22 @@ echo "npm@$(npm --version)";
 [[ ! -x $(which setup-nodejs-version) ]] &&	\
 npm install @volkovasystem/setup-nodejs-version --yes --force --global;
 
+[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+[[ -x $(which node) ]] &&				\
+sudo ln -s $(which node) /usr/local/bin/node;
+
+[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+[[ -x $(which npm) ]] &&				\
+sudo ln -s $(which npm) /usr/local/bin/npm;
+
+[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+[[ -x $(which npx) ]] &&				\
+sudo ln -s $(which npx) /usr/local/bin/npx;
+
+[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+[[ -x $(which corepack) ]] &&			\
+sudo ln -s $(which corepack) /usr/local/bin/corepack;
+
 set -o history;
 
 [[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\

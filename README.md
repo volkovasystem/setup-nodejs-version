@@ -10,12 +10,17 @@
 
 * Default setup via source-curl
 ```bash
-source <(curl -fLqsS https://raw.githubusercontent.com/volkovasystem/setup-nodejs-version/main/setup-nodejs-version.sh)
+source <(curl -fLqsS https://raw.githubusercontent.com/volkovasystem/setup-nodejs-version/main/setup-nodejs-version.sh?$RANDOM)
+```
+
+* Install locally using latest LTS version via source-curl
+```bash
+source <(curl -fLqsS https://raw.githubusercontent.com/volkovasystem/setup-nodejs-version/main/setup-nodejs-version.sh?$RANDOM) --local true
 ```
 
 * Change version via source-curl
 ```bash
-source <(curl -fLqsS https://raw.githubusercontent.com/volkovasystem/setup-nodejs-version/main/setup-nodejs-version.sh) -v 18.18.2
+source <(curl -fLqsS https://raw.githubusercontent.com/volkovasystem/setup-nodejs-version/main/setup-nodejs-version.sh?$RANDOM) -v 18.18.2
 ```
 
 * Default setup via npx
