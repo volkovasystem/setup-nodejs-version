@@ -1,5 +1,30 @@
 #	CHANGELOG
 
+##	2023-12-22/0.2.0
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- Added handler for case that the script was not sourced.
+
+###	MODIFIED
+- Fixed namespace resolution on directory path.
+- Improved local setup flow.
+- Fixed xarg parameter.
+- Modified to use internal setup of module dependency.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2023-11-26/0.1.5
 
 ###	UNRELEASED
