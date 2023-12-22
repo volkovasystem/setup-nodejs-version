@@ -1,5 +1,27 @@
 #	CHANGELOG
 
+##	2023-12-22/0.2.1
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Fixed namespace issue for platform root directory path.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2023-12-22/0.2.0
 
 ###	UNRELEASED
