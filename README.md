@@ -5,6 +5,7 @@
 ### Parameter
 * `-v | --version | --targetVersion`
 * `-n | --npm | --targetNPMVersion`
+* `-l | --local | --localSetupStatus`
 
 ###	Usage
 
