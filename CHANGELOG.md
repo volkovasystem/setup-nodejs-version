@@ -1,5 +1,28 @@
 #	CHANGELOG
 
+##	2024-01-03/0.2.7
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- Added reset setup flow support.
+- Added local setup support for tmux environment.
+
+###	MODIFIED
+- undefined
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2024-01-02/0.2.6
 
 ###	UNRELEASED
