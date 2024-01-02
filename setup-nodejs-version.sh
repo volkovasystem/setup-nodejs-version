@@ -279,8 +279,12 @@ echo "node@$(node --version)";
 echo "npm@$(npm --version)";
 
 [[ "$LOCAL_SETUP_STATUS" = true ]] &&		\
+[[ -x $(which setup-nodejs-version) ]] &&	\
+npm uninstall @volkovasystem/setup-nodejs-version --global;
+
+[[ "$LOCAL_SETUP_STATUS" = true ]] &&		\
 [[ ! -x $(which setup-nodejs-version) ]] &&	\
-npm install @volkovasystem/setup-nodejs-version --yes --force --global;
+npm install @volkovasystem/setup-nodejs-version@latest --yes --force --global;
 
 export PATH=$(		\
 echo -n $PATH | 	\
