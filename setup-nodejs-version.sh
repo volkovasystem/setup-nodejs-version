@@ -318,8 +318,8 @@ cp "$HOME/.bashrc" "$HOME/.bashrc.bak";
 cp "$HOME/.bashrc" "$TRASH_DIRECTORY/.bashrc.bak";
 
 [[ "$LOCAL_SETUP_STATUS" = true ]] &&									\
-[[ $(cat "$HOME/.bashrc" | grep -oP -m 1 $NP | head -1) == $NP ]] &&	\
-echo -e "$(sed "\|$NP|d" "$HOME/.bashrc")" > "$HOME/.bashrc";
+[[ $(cat "$HOME/.bashrc" | grep -oP -m 1 $NVPN | head -1) == $NVPN ]] &&	\
+echo -e "$(sed "\|$NVPN|d" "$HOME/.bashrc")" > "$HOME/.bashrc";
 
 [[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
 bash -c "cat >> $HOME/.bashrc" <<EOF
