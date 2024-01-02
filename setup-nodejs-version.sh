@@ -282,40 +282,22 @@ echo "npm@$(npm --version)";
 [[ ! -x $(which setup-nodejs-version) ]] &&	\
 npm install @volkovasystem/setup-nodejs-version --yes --force --global;
 
-#[[ -x /usr/local/bin/node ]] &&	\
-#sudo mv --force /usr/local/bin/node "$TRASH_DIRECTORY";
+export PATH=$(		\
+echo -n $PATH | 	\
+tr ":" "\n" |		\
+awk '!a[$0]++' |	\
+tr -s " " |			\
+cut -d " " -f3 |	\
+tr "\n" ":");
 
-#[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-#[[ -x $(which node) ]] &&				\
-#sudo ln -s $(which node) /usr/local/bin/node;
+[[ "$LOCAL_SETUP_STATUS" = true ]] &&					\
+[[ $(cat "$HOME/.bashrc" | grep -oP $NP) == $NP ]] &&	\
+sed "/$NP/d" "$HOME/.bashrc" >> "$HOME/.bashrc";
 
-#[[ -x /usr/local/bin/npm ]] &&	\
-#sudo mv --force /usr/local/bin/npm "$TRASH_DIRECTORY";
-
-#[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-#[[ -x $(which npm) ]] &&				\
-#sudo ln -s $(which npm) /usr/local/bin/npm;
-
-#[[ -x /usr/local/bin/npx ]] &&	\
-#sudo mv --force /usr/local/bin/npx "$TRASH_DIRECTORY";
-
-#[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-#[[ -x $(which npx) ]] &&				\
-#sudo ln -s $(which npx) /usr/local/bin/npx;
-
-#[[ -x /usr/local/bin/corepack ]] &&	\
-#sudo mv --force /usr/local/bin/corepack "$TRASH_DIRECTORY";
-
-#[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
-#[[ -x $(which corepack) ]] &&			\
-#sudo ln -s $(which corepack) /usr/local/bin/corepack;
-
-#[[ -x /usr/local/bin/setup-nodejs-version ]] &&	\
-#sudo mv --force /usr/local/bin/setup-nodejs-version "$TRASH_DIRECTORY";
-
-#[[ "$LOCAL_SETUP_STATUS" = true ]] &&		\
-#[[ -x $(which setup-nodejs-version) ]] &&	\
-#sudo ln -s $(which setup-nodejs-version) /usr/local/bin/setup-nodejs-version;
+[[ "$LOCAL_SETUP_STATUS" = true ]] &&	\
+sudo bash -c "cat >> $HOME/.bashrc" <<EOF
+export PATH=$PATH;
+EOF
 
 set -o history;
 
