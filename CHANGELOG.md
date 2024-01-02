@@ -1,5 +1,27 @@
 #	CHANGELOG
 
+##	2024-01-02/0.2.4
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Fixed path duplicate issue.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2023-12-22/0.2.3
 
 ###	UNRELEASED
