@@ -1,5 +1,28 @@
 #	CHANGELOG
 
+##	2024-01-02/0.2.5
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Fixed path duplicate issue.
+- Fixed bashrc issue.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2024-01-02/0.2.4
 
 ###	UNRELEASED
