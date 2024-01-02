@@ -1,5 +1,27 @@
 #	CHANGELOG
 
+##	2024-01-03/0.2.9
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Fixed bashrc condition issue.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2024-01-03/0.2.8
 
 ###	UNRELEASED
