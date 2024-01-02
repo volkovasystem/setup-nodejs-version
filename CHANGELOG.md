@@ -1,5 +1,27 @@
 #	CHANGELOG
 
+##	2024-01-02/0.2.6
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Fixed issue on setup-nodejs-version command.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2024-01-02/0.2.5
 
 ###	UNRELEASED
