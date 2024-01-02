@@ -43,6 +43,7 @@ SHORT_PARAMETER_LIST=(	\
 	v:					\
 	n:					\
 	l:					\
+	r:					\
 	h:					\
 );
 
@@ -53,6 +54,8 @@ LONG_PARAMETER_LIST=(	\
 	npm:,				\
 	localSetupStatus:,	\
 	local:,				\
+	resetSetupStatus:,	\
+	reset:,				\
 	help:				\
 );
 
@@ -74,6 +77,7 @@ exit 1;
 TARGET_VERSION="";
 TARGET_NPM_VERSION="";
 LOCAL_SETUP_STATUS=false;
+RESET_SETUP_STATUS=false;
 
 eval set -- "$PARAMETER";
 
@@ -94,6 +98,10 @@ do
 			;;
 		-l | --local | --localSetupStatus )
 			LOCAL_SETUP_STATUS=true;
+			shift 2
+			;;
+		-r | --reset | --resetSetupStatus )
+			RESET_SETUP_STATUS=true;
 			shift 2
 			;;
 		-- )
@@ -207,6 +215,14 @@ NPDP=$NODEJS_PACKAGE_DIRECTORY_PATH;
 [[ ! -d $NVP ]] && \
 mkdir $NVP;
 
+[[ "$RESET_SETUP_STATUS" = true ]] &&	\
+[[ -f "$NODEJS_PACKAGE_FILE_PATH" ]] &&	\
+mv --force "$NODEJS_PACKAGE_FILE_PATH" "$TRASH_DIRECTORY";
+
+[[ "$RESET_SETUP_STATUS" = true ]] &&	\
+[[ -d "$NODEJS_PACKAGE_DIRECTORY_PATH" ]] &&	\
+mv --force "$NODEJS_PACKAGE_DIRECTORY_PATH" "$TRASH_DIRECTORY";
+
 [[ ! -f $NPFP ]] && \
 wget $NDUP -P $NVP;
 
@@ -312,6 +328,12 @@ EOF
 
 set -o history;
 
+[[ "$LOCAL_SETUP_STATUS" = true ]] &&			\
+[[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\
+[[ -n "$TMUX" ]] &&								\
+history -c;
+
+[[ "$LOCAL_SETUP_STATUS" != true ]] &&			\
 [[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\
 [[ -n "$TMUX" ]] &&								\
 history -c && bash -i;
