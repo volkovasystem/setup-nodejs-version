@@ -1,5 +1,27 @@
 #	CHANGELOG
 
+##	2024-01-03/0.2.8
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Fixed version replace issue.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2024-01-03/0.2.7
 
 ###	UNRELEASED
