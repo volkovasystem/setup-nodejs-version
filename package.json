@@ -1,7 +1,7 @@
 {
 	"name": "@volkovasystem/setup-nodejs-version",
 	"alias": "setup-nodejs-version",
-	"version": "0.2.10",
+	"version": "0.2.11",
 	"description": "Setup NodeJS Version",
 	"main": "setup-nodejs-version.js",
 	"scripts": {
