@@ -1,5 +1,27 @@
 #	CHANGELOG
 
+##	2024-01-03/0.2.11
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Reverted support for bash session refresh on local setup.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2024-01-03/0.2.10
 
 ###	UNRELEASED
