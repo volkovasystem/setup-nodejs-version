@@ -328,12 +328,6 @@ EOF
 
 set -o history;
 
-[[ "$LOCAL_SETUP_STATUS" = true ]] &&			\
-[[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\
-[[ -n "$TMUX" ]] &&								\
-history -c;
-
-[[ "$LOCAL_SETUP_STATUS" != true ]] &&			\
 [[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\
 [[ -n "$TMUX" ]] &&								\
 history -c && bash -i;
